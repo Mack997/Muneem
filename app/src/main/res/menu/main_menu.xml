@@ -3,13 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:title="Settings"
+        android:title="@string/settings"
         app:showAsAction="never"
-        android:id="@+id/settings"/>
+        android:id="@+id/settings"
+        android:orderInCategory="2"/>
 
     <item
-        android:title="Settings"
-        app:showAsAction="always"
+        android:title="@string/categories"
+        app:showAsAction="never"
+        android:id="@+id/categories"
+        android:orderInCategory="1"/>
+
+
+    <item
+        android:title="@string/search"
+        app:showAsAction="ifRoom"
         android:id="@+id/search"
         android:icon="@drawable/search_icon"/>
 </menu>

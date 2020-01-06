@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:text="@string/date"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/trans_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true"
+            android:hint="@string/date"
+            android:textSize="24sp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:text="@string/amount"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/trans_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true"
+            android:inputType="numberDecimal"
+            android:hint="@string/amount"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:text="@string/category"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/trans_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true"
+            android:hint="@string/category"
+            android:textSize="24sp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:text="@string/comment"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/trans_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true"
+            android:inputType="textMultiLine"
+            android:maxLines="2"
+            android:hint="@string/comment"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

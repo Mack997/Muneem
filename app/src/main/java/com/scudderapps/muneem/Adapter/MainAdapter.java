@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 public class MainAdapter extends FragmentPagerAdapter {
 
-    String data[] = {"Transactions", "Analysis"};
+    String data[] = {"Transactions", "Summary"};
 
     public MainAdapter(@NonNull FragmentManager fm) {
         super(fm);

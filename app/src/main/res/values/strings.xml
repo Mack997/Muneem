@@ -6,4 +6,96 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings">Settings</string>
+    <string name="categories">Categories</string>
+    <string name="search">Search</string>
+    <string name="amount">Amount</string>
+    <string name="notes">Notes</string>
+    <string name="category">Category</string>
+    <string name="date">Date</string>
+    <string name="comment">Comment</string>
+
+
+    <string-array name="random">
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+    </string-array>
+
+    <string-array name="desc">
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+        <item>Mayank</item>
+    </string-array>
+
+    <string-array name="amount">
+        <item>10000</item>
+        <item>1000010000</item>
+        <item>10000</item>
+        <item>10000</item>
+        <item>10000</item>
+        <item>10000</item>
+        <item>10000</item>
+        <item>10000</item>
+        <item>10000</item>
+        <item>10000</item>
+        <item>10000</item>
+        <item>10000</item>
+        <item>10000</item>
+        <item>10000</item>
+        <item>10000</item>
+        <item>10000</item>
+        <item>10000</item>
+        <item>10000</item>
+        <item>10000</item>
+        <item>10000</item>
+        <item>10000</item>
+        <item>10000</item>
+        <item>10000</item>
+        <item>10000</item>
+    </string-array>
+
+
 </resources>
