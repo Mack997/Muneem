@@ -3,11 +3,13 @@ package com.scudderapps.muneem;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
+import com.scudderapps.muneem.Adapter.CategoryAdapter;
 import com.scudderapps.muneem.Adapter.MainAdapter;
 import com.scudderapps.muneem.Fragment.GraphFragment;
 import com.scudderapps.muneem.Fragment.TransactionsFragment;
@@ -23,6 +25,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -96,8 +99,8 @@ public class MainActivity extends AppCompatActivity {
 
                 c.set(year, month, day, 0, 0, 0);
                 @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM, yyyy");
-                String choosed_date = dateFormat.format(c.getTime());
-                date.setText(choosed_date);
+                String choose_date = dateFormat.format(c.getTime());
+                date.setText(choose_date);
 
                 date.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -115,6 +118,24 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+
+                String choose_amount = amount.getText().toString();
+
+                category.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder alertDialog = new  AlertDialog.Builder(MainActivity.this);
+                        View mView = getLayoutInflater().inflate(R.layout.category_list_item, null);
+                        alertDialog.setView(mView);
+                        AlertDialog dialog = alertDialog.create();
+                        dialog.setCanceledOnTouchOutside(true);
+
+                        dialog.show();
+
+                    }
+                });
+
+
                 dialog.show();
 
             }
@@ -127,5 +148,17 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
 
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.categories :
+                Intent startCat = new Intent(MainActivity.this, CategoryActivity.class);
+                startActivity(startCat);
+            break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
