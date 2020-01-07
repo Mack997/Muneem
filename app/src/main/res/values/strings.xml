@@ -47,15 +47,9 @@
         <item>Mayank</item>
         <item>Mayank</item>
         <item>Mayank</item>
-        <item>Mayank</item>
-        <item>Mayank</item>
-        <item>Mayank</item>
     </string-array>
 
     <string-array name="desc">
-        <item>Mayank</item>
-        <item>Mayank</item>
-        <item>Mayank</item>
         <item>Mayank</item>
         <item>Mayank</item>
         <item>Mayank</item>
@@ -82,9 +76,6 @@
     <string-array name="amount">
         <item>10000</item>
         <item>1000010000</item>
-        <item>10000</item>
-        <item>10000</item>
-        <item>10000</item>
         <item>10000</item>
         <item>10000</item>
         <item>10000</item>
