@@ -11,13 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.scudderapps.muneem.Adapter.TransactionAdapter;
+import com.scudderapps.muneem.Dialogs.AddTransactionDialog;
 import com.scudderapps.muneem.R;
 
-public class TransactionsFragment extends Fragment {
-
-    String[] s1, s2, s3;
+public class TransactionsFragment extends Fragment implements AddTransactionDialog.PassTransacationDetails {
 
     TransactionAdapter td;
+    String trans_amnt, trans_date;
 
     public TransactionsFragment() {
     }
@@ -28,16 +28,19 @@ public class TransactionsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_transactions, container, false);
         RecyclerView transactionsView = rootView.findViewById(R.id.transaction_recycler_view);
 
-        s1 = getResources().getStringArray(R.array.random);
-        s2 = getResources().getStringArray(R.array.desc);
-        s3 = getResources().getStringArray(R.array.amount);
 
-        td = new TransactionAdapter(getContext(), s1, s2, s3);
+        td = new TransactionAdapter(getContext(), trans_amnt, trans_date);
 
         transactionsView.setAdapter(td);
         transactionsView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         return rootView;
 
+    }
+
+    @Override
+    public void TransacationDetails(String amount, String date) {
+        trans_amnt = amount;
+        trans_date = date;
     }
 }

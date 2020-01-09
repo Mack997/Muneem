@@ -1,36 +1,29 @@
 package com.scudderapps.muneem;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import petrov.kristiyan.colorpicker.ColorPicker;
 
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.scudderapps.muneem.Adapter.CategoryAdapter;
+import com.scudderapps.muneem.Dialogs.AddCategoryDialog;
+import com.scudderapps.muneem.Model.CategoryData;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
+import java.util.ArrayList;
+import java.util.List;
 
-public class CategoryActivity extends AppCompatActivity {
+public class CategoryActivity extends AppCompatActivity implements AddCategoryDialog.PassResult {
 
+    List<CategoryData> catList = new ArrayList();
     RecyclerView categoryView;
-    FloatingActionButton addCategory;
-
-    String[] s1;
-
     CategoryAdapter categoryAdapter;
+    String catName;
+    FloatingActionButton addCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,54 +38,24 @@ public class CategoryActivity extends AppCompatActivity {
         categoryView =  findViewById(R.id.category_view);
         addCategory = findViewById(R.id.addCategory);
 
-        s1 = getResources().getStringArray(R.array.cat);
-
-        categoryAdapter = new CategoryAdapter(this, s1);
-
+        categoryAdapter = new CategoryAdapter(getApplicationContext(), catList);
         categoryView.setAdapter(categoryAdapter);
         categoryView.setLayoutManager(new LinearLayoutManager(this));
-
 
         addCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alertDialog = new  AlertDialog.Builder(CategoryActivity.this);
-                View mView = getLayoutInflater().inflate(R.layout.add_category_dialog, null);
-                final TextView cat_name = mView.findViewById(R.id.add_cat_name);
-                final RadioGroup expense_type = mView.findViewById(R.id.type);
-                final TextView selectedColor = mView.findViewById(R.id.color);
-                final LinearLayout layout = mView.findViewById(R.id.catDialog);
-                alertDialog.setView(mView);
-                AlertDialog dialog = alertDialog.create();
-                dialog.setCanceledOnTouchOutside(true);
-                dialog.show();
-
-
-                selectedColor.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        final ColorPicker colorPicker = new ColorPicker(CategoryActivity.this);
-                        colorPicker.setRoundColorButton(true);
-
-                        colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
-                            @Override
-                            public void onChooseColor(int position, int color) {
-                                layout.setBackgroundColor(color);
-                                colorPicker.dismissDialog();
-                            }
-
-                            @Override
-                            public void onCancel() {
-                                // put code
-                            }
-                        }).setColumns(5)
-                            .setTitle("Select Color")
-                            .show();
-                    }
-                });
-
+                AddCategoryDialog addCategoryDialog = new AddCategoryDialog(CategoryActivity.this);
+                addCategoryDialog.show(getSupportFragmentManager(), "Add Category");
             }
         });
+    }
 
+    @Override
+    public void categoryDetails(String CatName) {
+        catName = CatName;
+        CategoryData categoryData = new CategoryData(catName);
+        catList.add(categoryData);
+        categoryAdapter.notifyDataSetChanged();
     }
 }

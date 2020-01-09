@@ -13,14 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
 
-    String data1[], data2[], data3[];
+    String data1, data2;
     Context context;
 
-    public TransactionAdapter(Context ctx, String[] s1, String[] s2, String[] s3){
+    public TransactionAdapter(Context ctx, String s1, String s2){
         context = ctx;
         data1 = s1;
         data2 = s2;
-        data3 = s3;
     }
 
     @NonNull
@@ -33,15 +32,14 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.t1.setText(data1[position]);
-        holder.t2.setText(data2[position]);
-        holder.t3.setText(data3[position]);
+        holder.t1.setText(data1);
+        holder.t2.setText(data2);
     }
 
 
     @Override
     public int getItemCount() {
-        return data1.length;
+        return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

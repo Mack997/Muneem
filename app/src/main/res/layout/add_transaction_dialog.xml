@@ -1,139 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp">
+<?xml version="1.0" encoding="UTF-8"?>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp" >
+    <LinearLayout android:layout_margin="10dp" android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-thin"
-            android:text="@string/date"
-            android:textColor="@android:color/black"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+    -<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="vertical" android:padding="10dp">
 
-        <TextView
-            android:id="@+id/trans_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:clickable="true"
-            android:focusable="true"
-            android:hint="@string/date"
-            android:textSize="24sp"/>
+    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold" android:textSize="12sp" android:textColor="@android:color/black" android:text="@string/date" android:fontFamily="sans-serif-thin"/>
+
+    <TextView android:layout_height="wrap_content" android:layout_width="match_parent" android:textSize="24sp" android:hint="@string/date" android:focusable="true" android:clickable="true" android:background="@null" android:id="@+id/trans_date"/>
+
+    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold" android:textSize="12sp" android:textColor="@android:color/black" android:text="@string/amount" android:fontFamily="sans-serif-thin" android:layout_marginTop="16dp"/>
+
+    <EditText android:layout_height="wrap_content" android:layout_width="match_parent" android:textSize="24sp" android:hint="@string/amount" android:focusable="true" android:clickable="true" android:background="@null" android:id="@+id/trans_amount" android:inputType="numberDecimal"/>
+
+</LinearLayout>
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-thin"
-            android:text="@string/amount"
-            android:textColor="@android:color/black"
-            android:textSize="12sp"
-            android:layout_marginTop="16dp"
-            android:textStyle="bold" />
+    -<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="vertical" android:padding="10dp">
 
-        <EditText
-            android:id="@+id/trans_amount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:clickable="true"
-            android:focusable="true"
-            android:inputType="numberDecimal"
-            android:hint="@string/amount"
-            android:textSize="24sp" />
+    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold" android:textSize="12sp" android:textColor="@android:color/black" android:text="@string/category" android:fontFamily="sans-serif-thin"/>
 
-    </LinearLayout>
+    <TextView android:layout_height="wrap_content" android:layout_width="match_parent" android:textSize="24sp" android:hint="@string/category" android:focusable="true" android:clickable="true" android:background="@null" android:id="@+id/trans_cat"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp" >
+    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold" android:textSize="12sp" android:textColor="@android:color/black" android:text="@string/comment" android:fontFamily="sans-serif-thin" android:layout_marginTop="16dp"/>
+
+    <EditText android:layout_height="wrap_content" android:layout_width="match_parent" android:textSize="24sp" android:hint="@string/comment" android:focusable="true" android:clickable="true" android:background="@null" android:id="@+id/trans_notes" android:inputType="textMultiLine" android:maxLines="2"/>
+
+</LinearLayout>
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-thin"
-            android:text="@string/category"
-            android:textColor="@android:color/black"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+    -<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="horizontal" android:weightSum="2">
 
-        <TextView
-            android:id="@+id/trans_cat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:clickable="true"
-            android:focusable="true"
-            android:hint="@string/category"
-            android:textSize="24sp"/>
+    <Button android:layout_margin="5dp" android:layout_height="wrap_content" android:layout_width="match_parent" android:textColor="@android:color/white" android:text="@string/cancel" android:background="@android:color/holo_red_light" android:id="@+id/new_trans_cancel" android:layout_weight="1"/>
 
+    <Button android:layout_margin="5dp" android:layout_height="wrap_content" android:layout_width="match_parent" android:textColor="@android:color/white" android:text="@string/add" android:background="@color/colorAccent" android:id="@+id/new_trans_add" android:layout_weight="1"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-thin"
-            android:text="@string/comment"
-            android:textColor="@android:color/black"
-            android:textSize="12sp"
-            android:layout_marginTop="16dp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/trans_notes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:clickable="true"
-            android:focusable="true"
-            android:inputType="textMultiLine"
-            android:maxLines="2"
-            android:hint="@string/comment"
-            android:textSize="24sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-        <Button
-            android:id="@+id/cancel"
-            android:textColor="@android:color/white"
-            android:background="@android:color/holo_red_light"
-            android:text="@string/cancel"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"/>
-
-        <Button
-            android:id="@+id/new_trans"
-            android:textColor="@android:color/white"
-            android:background="@color/colorAccent"
-            android:text="@string/add"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"/>
-
-    </LinearLayout>
-
-
+</LinearLayout>
 
 </LinearLayout>
