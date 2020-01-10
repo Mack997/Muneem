@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/list_ittem_bg"
     android:layout_marginStart="5dp"
     android:layout_marginEnd="5dp"
-    android:layout_marginTop="8dp">
+    android:layout_marginTop="8dp"
+    android:padding="5dp"
+    android:id="@+id/cat_layout">
+
+    <ImageView
+        android:id="@+id/add_cat_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/expense_sub_icon"
+        android:padding="10dp"
+        android:layout_margin="5dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="5dp"/>
 
     <TextView
         android:id="@+id/category_item"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="24sp"
+        android:text="Travel"
         android:layout_marginStart="5dp"
+        android:layout_gravity="center"
         android:padding="5dp"/>
 
 </LinearLayout>

@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.scudderapps.muneem.Model.CategoryData;
@@ -36,8 +38,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
+
         CategoryData expense = categoryList.get(position);
         holder.t1.setText(expense.getName());
+        holder.catLayout.setBackgroundColor(expense.getColor());
+        Log.d("tyoe", expense.getType());
+
+        if (expense.getType().equals("Expense")){
+            holder.catType.setBackgroundResource(R.drawable.expense_sub_icon);
+        } else {
+            holder.catType.setBackgroundResource(R.drawable.income_add_icon);
+        }
     }
 
     @Override
@@ -49,9 +60,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView t1;
+        LinearLayout catLayout;
+        ImageView catType;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             t1 = itemView.findViewById(R.id.category_item);
+            catLayout = itemView.findViewById(R.id.cat_layout);
+            catType = itemView.findViewById(R.id.add_cat_image);
         }
     }
 }

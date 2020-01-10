@@ -23,6 +23,7 @@
         </activity>
         <activity
             android:name=".CategoryActivity"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>

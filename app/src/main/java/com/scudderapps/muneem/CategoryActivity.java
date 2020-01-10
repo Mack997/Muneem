@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.scudderapps.muneem.Adapter.CategoryAdapter;
+import com.scudderapps.muneem.Database.DatabaseHelper;
 import com.scudderapps.muneem.Dialogs.AddCategoryDialog;
 import com.scudderapps.muneem.Model.CategoryData;
 
@@ -22,7 +23,8 @@ public class CategoryActivity extends AppCompatActivity implements AddCategoryDi
     List<CategoryData> catList = new ArrayList();
     RecyclerView categoryView;
     CategoryAdapter categoryAdapter;
-    String catName;
+    String catName, type;
+    int color;
     FloatingActionButton addCategory;
 
     @Override
@@ -52,10 +54,14 @@ public class CategoryActivity extends AppCompatActivity implements AddCategoryDi
     }
 
     @Override
-    public void categoryDetails(String CatName) {
+    public void categoryDetails(String CatName, String Type, int Color) {
         catName = CatName;
-        CategoryData categoryData = new CategoryData(catName);
+        type = Type;
+        color = Color;
+        CategoryData categoryData = new CategoryData(catName, type, color);
         catList.add(categoryData);
+        DatabaseHelper databaseHelper =  new DatabaseHelper(this);
+        databaseHelper.addCategory(categoryData);
         categoryAdapter.notifyDataSetChanged();
     }
 }
