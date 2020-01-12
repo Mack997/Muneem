@@ -12,10 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import com.scudderapps.muneem.Model.CategoryData;
 import com.scudderapps.muneem.R;
-
+import com.scudderapps.muneem.ViewModels.CategoryViewModel;
 import petrov.kristiyan.colorpicker.ColorPicker;
 
 public class AddCategoryDialog extends AppCompatDialogFragment  {
@@ -26,7 +29,7 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
     private int colorID;
     private RadioButton categoryType;
     private LinearLayout layout;
-    private PassResult mPassResult;
+    private CategoryViewModel categoryViewModel;
 
     public AddCategoryDialog(Context context) {
         this.context = context;
@@ -43,11 +46,9 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
 
         final TextView cat_name = view.findViewById(R.id.new_cat_name);
         final RadioGroup expense_type = view.findViewById(R.id.cat_type);
-        TextView selectedColor = view.findViewById(R.id.new_cat_color);
-
+        final TextView selectedColor = view.findViewById(R.id.new_cat_color);
         Button add = view.findViewById(R.id.new_cat_add);
         Button cancel = view.findViewById(R.id.new_cat_cancel);
-
         layout = view.findViewById(R.id.catDialog);
 
         selectedColor.setOnClickListener(new View.OnClickListener() {
@@ -62,10 +63,9 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
                         layout.setBackgroundColor(color);
                         colorPicker.dismissDialog();
                     }
-
                     @Override
                     public void onCancel() {
-                        // put code
+                        Toast.makeText(context, "Please select a color for the Category", Toast.LENGTH_SHORT).show();
                     }
                 }).setColumns(5)
                         .setTitle("Select Color")
@@ -76,16 +76,23 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new_cat_name = cat_name.getText().toString();
 
+                //Reading details from the user.
+                new_cat_name = cat_name.getText().toString();
                 final int expenseTypeID = expense_type.getCheckedRadioButtonId();
                 categoryType = view.findViewById(expenseTypeID);
                 cat_type = categoryType.getText().toString();
-
                 ColorDrawable colorDrawable = (ColorDrawable) layout.getBackground();
                 colorID = colorDrawable.getColor();
 
-                mPassResult.categoryDetails(new_cat_name, cat_type, colorID);
+                //inserting data to viewmodel.
+                CategoryData categoryData = new CategoryData();
+                categoryData.setName(new_cat_name);
+                categoryData.setType(cat_type);
+                categoryData.setColor(colorID);
+
+                categoryViewModel = new CategoryViewModel(getActivity().getApplication());
+                categoryViewModel.insert(categoryData);
 
                 getDialog().dismiss();
             }
@@ -98,21 +105,5 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
             }
         });
         return builder.create();
-    }
-
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-
-        try {
-            mPassResult = (PassResult) context;
-        } catch (ClassCastException e){
-            throw new ClassCastException(context.toString() + "Please implement PassResult");
-        }
-    }
-
-    public interface PassResult{
-        void categoryDetails(String CatName, String Type, int Color);
     }
 }

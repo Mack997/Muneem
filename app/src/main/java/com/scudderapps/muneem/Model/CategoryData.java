@@ -1,16 +1,32 @@
 package com.scudderapps.muneem.Model;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class CategoryData {
 
-    String Name, Type;
-    int Color;
+    @PrimaryKey(autoGenerate = true)
+    private int Id;
+    private String Name;
+    private String Type;
+    private int Color;
 
     public String getName() {
         return Name;
     }
 
-    public void setName(String name) {
+    public void setName(@NonNull String name) {
         Name = name;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
     }
 
     public String getType() {
@@ -26,12 +42,6 @@ public class CategoryData {
     }
 
     public void setColor(int color) {
-        Color = color;
-    }
-
-    public CategoryData(String name, String type, int color) {
-        Name = name;
-        Type = type;
         Color = color;
     }
 }
