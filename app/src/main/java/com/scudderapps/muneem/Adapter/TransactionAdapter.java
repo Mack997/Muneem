@@ -13,27 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
 
-    String data1, data2;
-    Context context;
-
-    public TransactionAdapter(Context ctx, String s1, String s2){
-        context = ctx;
-        data1 = s1;
-        data2 = s2;
-    }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.transaction_list_item,parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.t1.setText(data1);
-        holder.t2.setText(data2);
+
     }
 
 

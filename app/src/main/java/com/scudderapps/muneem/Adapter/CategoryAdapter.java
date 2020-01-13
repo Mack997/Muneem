@@ -32,7 +32,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.catLayout.setBackgroundColor(expense.getColor());
 
         if (expense.getType().equals("Expense")){
-            holder.catType.setBackgroundResource(R.drawable.expense_sub_icon);
+            holder.catType.setBackgroundResource(R.drawable.subtract);
         } else {
             holder.catType.setBackgroundResource(R.drawable.income_add_icon);
         }

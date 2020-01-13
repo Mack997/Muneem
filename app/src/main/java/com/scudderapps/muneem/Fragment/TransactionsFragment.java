@@ -14,10 +14,9 @@ import com.scudderapps.muneem.Adapter.TransactionAdapter;
 import com.scudderapps.muneem.Dialogs.AddTransactionDialog;
 import com.scudderapps.muneem.R;
 
-public class TransactionsFragment extends Fragment implements AddTransactionDialog.PassTransacationDetails {
+public class TransactionsFragment extends Fragment {
 
     TransactionAdapter td;
-    String trans_amnt, trans_date;
 
     public TransactionsFragment() {
     }
@@ -28,19 +27,7 @@ public class TransactionsFragment extends Fragment implements AddTransactionDial
         View rootView = inflater.inflate(R.layout.fragment_transactions, container, false);
         RecyclerView transactionsView = rootView.findViewById(R.id.transaction_recycler_view);
 
-
-        td = new TransactionAdapter(getContext(), trans_amnt, trans_date);
-
-        transactionsView.setAdapter(td);
-        transactionsView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         return rootView;
 
-    }
-
-    @Override
-    public void TransacationDetails(String amount, String date) {
-        trans_amnt = amount;
-        trans_date = date;
     }
 }

@@ -1,51 +1,60 @@
 package com.scudderapps.muneem.Dialogs;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.scudderapps.muneem.CategoryActivity;
 import com.scudderapps.muneem.R;
+
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class AddTransactionDialog extends Dialog implements View.OnClickListener{
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialogFragment;
+
+public class AddTransactionDialog extends AppCompatDialogFragment {
 
     private Context context;
     final Calendar c = Calendar.getInstance();
 
-    private PassTransacationDetails passTransacationDetails;
-
     public AddTransactionDialog(Context context) {
-        super(context);
         this.context = context;
     }
 
+    @NonNull
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_transaction_dialog);
-        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
+        final View view = layoutInflater.inflate(R.layout.add_transaction_dialog, null);
+        builder.setView(view);
 
-        final TextView date = findViewById(R.id.trans_date);
-        final EditText amount = findViewById(R.id.trans_amount);
-        final TextView category = findViewById(R.id.trans_cat);
-        final TextView comment = findViewById(R.id.trans_notes);
-        final Button addTrans = findViewById(R.id.new_trans_add);
+        final TextView date = view.findViewById(R.id.trans_date);
+        final EditText amount = view.findViewById(R.id.trans_amount);
+        final TextView category = view.findViewById(R.id.trans_cat);
+        final TextView comment = view.findViewById(R.id.trans_notes);
+        final Button addTrans = view.findViewById(R.id.new_trans_add);
 
-        final Button canelTrans = findViewById(R.id.new_trans_cancel);
+        final Button canelTrans = view.findViewById(R.id.new_trans_cancel);
 
 
-        final Integer month=c.get(Calendar.MONTH);
-        final Integer day=c.get(Calendar.DAY_OF_MONTH);
-        final Integer year=c.get(Calendar.YEAR);
+        final Integer month = c.get(Calendar.MONTH);
+        final Integer day = c.get(Calendar.DAY_OF_MONTH);
+        final Integer year = c.get(Calendar.YEAR);
 
         c.set(year, month, day, 0, 0, 0);
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM, yyyy");
@@ -63,23 +72,23 @@ public class AddTransactionDialog extends Dialog implements View.OnClickListener
                         String choosed_date = dateFormat.format(c.getTime());
                         date.setText(choosed_date);
                     }
-                },year, month, day);
+                }, year, month, day);
                 datePickerDialog.show();
             }
         });
 
+        category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CategoryDialog categoryDialog = new CategoryDialog(getContext());
+                categoryDialog.show(getActivity().getSupportFragmentManager(), "Select Category");
+            }
+        });
+
         String choose_amount = amount.getText().toString();
-        passTransacationDetails.TransacationDetails(choose_amount, choose_date);
+        String choose_comment = comment.getText().toString();
+
+        return builder.create();
 
     }
-
-    @Override
-    public void onClick(View v) {
-
-    }
-
-    public interface PassTransacationDetails{
-        void TransacationDetails(String amount, String date);
-    }
-
 }

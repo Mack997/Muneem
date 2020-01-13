@@ -1,40 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-    <LinearLayout android:layout_margin="10dp" android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android">
-
-
-    -<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="vertical" android:padding="10dp">
-
-    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold" android:textSize="12sp" android:textColor="@android:color/black" android:text="@string/date" android:fontFamily="sans-serif-thin"/>
-
-    <TextView android:layout_height="wrap_content" android:layout_width="match_parent" android:textSize="24sp" android:hint="@string/date" android:focusable="true" android:clickable="true" android:background="@null" android:id="@+id/trans_date"/>
-
-    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold" android:textSize="12sp" android:textColor="@android:color/black" android:text="@string/amount" android:fontFamily="sans-serif-thin" android:layout_marginTop="16dp"/>
-
-    <EditText android:layout_height="wrap_content" android:layout_width="match_parent" android:textSize="24sp" android:hint="@string/amount" android:focusable="true" android:clickable="true" android:background="@null" android:id="@+id/trans_amount" android:inputType="numberDecimal"/>
-
-</LinearLayout>
+    <LinearLayout
+    android:layout_margin="10dp"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    -<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="vertical" android:padding="10dp">
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical" android:padding="10dp">
 
-    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold" android:textSize="12sp" android:textColor="@android:color/black" android:text="@string/category" android:fontFamily="sans-serif-thin"/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textStyle="bold" android:textSize="12sp"
+                android:textColor="@android:color/black"
+                android:text="@string/date"
+                android:fontFamily="sans-serif-thin"/>
 
-    <TextView android:layout_height="wrap_content" android:layout_width="match_parent" android:textSize="24sp" android:hint="@string/category" android:focusable="true" android:clickable="true" android:background="@null" android:id="@+id/trans_cat"/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textSize="24sp"
+                android:hint="@string/date"
+                android:focusable="true"
+                android:clickable="true"
+                android:background="@null"
+                android:id="@+id/trans_date"/>
 
-    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold" android:textSize="12sp" android:textColor="@android:color/black" android:text="@string/comment" android:fontFamily="sans-serif-thin" android:layout_marginTop="16dp"/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:textColor="@android:color/black"
+                android:text="@string/amount"
+                android:fontFamily="sans-serif-thin"
+                android:layout_marginTop="16dp"/>
 
-    <EditText android:layout_height="wrap_content" android:layout_width="match_parent" android:textSize="24sp" android:hint="@string/comment" android:focusable="true" android:clickable="true" android:background="@null" android:id="@+id/trans_notes" android:inputType="textMultiLine" android:maxLines="2"/>
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textSize="24sp"
+                android:hint="@string/amount"
+                android:focusable="true"
+                android:clickable="true"
+                android:background="@null"
+                android:id="@+id/trans_amount"
+                android:inputType="numberDecimal"/>
+    </LinearLayout>
 
-</LinearLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:textColor="@android:color/black"
+                android:text="@string/category"
+                android:fontFamily="sans-serif-thin"/>
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textSize="24sp"
+                android:hint="@string/category"
+                android:focusable="true"
+                android:clickable="true"
+                android:background="@null"
+                android:id="@+id/trans_cat"/>
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:textColor="@android:color/black"
+                android:text="@string/comment"
+                android:fontFamily="sans-serif-thin"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textSize="24sp"
+                android:hint="@string/comment"
+                android:focusable="true"
+                android:clickable="true"
+                android:background="@null"
+                android:id="@+id/trans_notes"
+                android:inputType="textMultiLine"
+                android:maxLines="2"/>
+    </LinearLayout>
 
 
-    -<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="horizontal" android:weightSum="2">
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
-    <Button android:layout_margin="5dp" android:layout_height="wrap_content" android:layout_width="match_parent" android:textColor="@android:color/white" android:text="@string/cancel" android:background="@android:color/holo_red_light" android:id="@+id/new_trans_cancel" android:layout_weight="1"/>
+            <Button
+                style="@style/AppTheme"
+                android:layout_margin="5dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textColor="@android:color/white"
+                android:text="@string/cancel"
+                android:background="@android:color/holo_red_light"
+                android:id="@+id/new_trans_cancel"
+                android:layout_weight="1"/>
 
-    <Button android:layout_margin="5dp" android:layout_height="wrap_content" android:layout_width="match_parent" android:textColor="@android:color/white" android:text="@string/add" android:background="@color/colorAccent" android:id="@+id/new_trans_add" android:layout_weight="1"/>
-
-</LinearLayout>
+            <Button
+                style="@style/AppTheme"
+                android:layout_margin="5dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textColor="@android:color/white"
+                android:text="@string/add"
+                android:background="@color/colorAccent"
+                android:id="@+id/new_trans_add"
+                android:layout_weight="1"/>
+    </LinearLayout>
 
 </LinearLayout>
