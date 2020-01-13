@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.scudderapps.muneem.Adapter.CategoryAdapter;
@@ -51,6 +52,7 @@ public class CategoryDialog extends AppCompatDialogFragment {
         categoryView = view.findViewById(R.id.category_view);
         fab = view.findViewById(R.id.addCategory);
         fab.hide();
+
         categoryViewModel = ViewModelProviders.of((FragmentActivity) getContext()).get(CategoryViewModel.class);
         categoryViewModel.getAllCategory().observe(this, new Observer<List<CategoryData>>() {
             @Override

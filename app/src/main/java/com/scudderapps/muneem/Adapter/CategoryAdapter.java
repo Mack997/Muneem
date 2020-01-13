@@ -1,11 +1,16 @@
 package com.scudderapps.muneem.Adapter;
 
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.scudderapps.muneem.Model.CategoryData;
 import com.scudderapps.muneem.R;
 import androidx.annotation.NonNull;
@@ -14,7 +19,8 @@ import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
-    List<CategoryData> categoryList;
+    private List<CategoryData> categoryList;
+    private OnItemClickListener listener;
 
     @NonNull
     @Override
@@ -48,16 +54,42 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public CategoryData getCategoryAt(int position){
+        return categoryList.get(position);
+    }
+
+
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView catName;
         LinearLayout catLayout;
         ImageView catType;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             catName = itemView.findViewById(R.id.category_item);
             catLayout = itemView.findViewById(R.id.cat_layout);
             catType = itemView.findViewById(R.id.add_cat_image);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(categoryList.get(position));
+                    }
+                }
+            });
         }
+
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(CategoryData categoryData);
+    }
+
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }

@@ -26,6 +26,10 @@ public class CategoryViewModel extends AndroidViewModel {
         repository.insert(categoryData);
     }
 
+    public void delete(CategoryData categoryData){
+        repository.delete(categoryData);
+    }
+
     public LiveData<List<CategoryData>> getAllCategory() {
         return allCategory;
     }

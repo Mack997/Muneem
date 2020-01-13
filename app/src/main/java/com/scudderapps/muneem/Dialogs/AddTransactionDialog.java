@@ -6,23 +6,17 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.scudderapps.muneem.CategoryActivity;
-import com.scudderapps.muneem.DAO.TransactionDAO;
 import com.scudderapps.muneem.Model.TransactionData;
 import com.scudderapps.muneem.R;
 import com.scudderapps.muneem.ViewModels.TransactionViewModel;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -112,8 +106,6 @@ public class AddTransactionDialog extends AppCompatDialogFragment {
                 transactionData.setComment(choose_comment);
                 transactionData.setCategory(choose_category);
 
-                Log.e("DAte", choosed_date);
-
                 transactionViewModel = new TransactionViewModel(getActivity().getApplication());
                 transactionViewModel.insert(transactionData);
 
@@ -122,6 +114,13 @@ public class AddTransactionDialog extends AppCompatDialogFragment {
             }
         });
 
+        canelTrans.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDialog().cancel();
+            }
+        });
+        
         return builder.create();
 
     }
