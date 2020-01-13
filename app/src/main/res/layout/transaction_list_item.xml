@@ -35,6 +35,15 @@
             android:text="@string/notes"
             android:textSize="12sp" />
 
+        <TextView
+            android:id="@+id/cat_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="Date"
+            android:textSize="12sp" />
+
     </LinearLayout>
 
     <RelativeLayout
