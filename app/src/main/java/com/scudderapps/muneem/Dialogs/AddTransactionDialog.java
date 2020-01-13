@@ -6,16 +6,21 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.scudderapps.muneem.CategoryActivity;
+import com.scudderapps.muneem.DAO.TransactionDAO;
+import com.scudderapps.muneem.Model.TransactionData;
 import com.scudderapps.muneem.R;
+import com.scudderapps.muneem.ViewModels.TransactionViewModel;
 
 import org.w3c.dom.Text;
 
@@ -30,6 +35,9 @@ public class AddTransactionDialog extends AppCompatDialogFragment {
     private Context context;
     final Calendar c = Calendar.getInstance();
 
+    private  String choose_amount, choose_comment, choose_category, choosed_date;
+    private TransactionViewModel transactionViewModel;
+
     public AddTransactionDialog(Context context) {
         this.context = context;
     }
@@ -38,7 +46,7 @@ public class AddTransactionDialog extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
         final View view = layoutInflater.inflate(R.layout.add_transaction_dialog, null);
         builder.setView(view);
@@ -48,6 +56,7 @@ public class AddTransactionDialog extends AppCompatDialogFragment {
         final TextView category = view.findViewById(R.id.trans_cat);
         final TextView comment = view.findViewById(R.id.trans_notes);
         final Button addTrans = view.findViewById(R.id.new_trans_add);
+        final LinearLayout transactionLayout = view.findViewById(R.id.transaction_item);
 
         final Button canelTrans = view.findViewById(R.id.new_trans_cancel);
 
@@ -58,7 +67,7 @@ public class AddTransactionDialog extends AppCompatDialogFragment {
 
         c.set(year, month, day, 0, 0, 0);
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM, yyyy");
-        String choose_date = dateFormat.format(c.getTime());
+        final String choose_date = dateFormat.format(c.getTime());
         date.setText(choose_date);
 
         date.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +78,7 @@ public class AddTransactionDialog extends AppCompatDialogFragment {
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         c.set(year, monthOfYear, dayOfMonth, 0, 0, 0);
                         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM, yyyy");
-                        String choosed_date = dateFormat.format(c.getTime());
+                        choosed_date = dateFormat.format(c.getTime());
                         date.setText(choosed_date);
                     }
                 }, year, month, day);
@@ -80,13 +89,38 @@ public class AddTransactionDialog extends AppCompatDialogFragment {
         category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CategoryDialog categoryDialog = new CategoryDialog(getContext());
-                categoryDialog.show(getActivity().getSupportFragmentManager(), "Select Category");
+//                CategoryDialog categoryDialog = new CategoryDialog(getContext());
+//                categoryDialog.show(getActivity().getSupportFragmentManager(), "Select Category");
+
+                category.setText("Demo");
             }
         });
 
-        String choose_amount = amount.getText().toString();
-        String choose_comment = comment.getText().toString();
+
+        addTrans.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choose_amount = amount.getText().toString();
+                choose_comment = comment.getText().toString();
+                choose_category = category.getText().toString();
+                choose_category = category.getText().toString();
+
+                //inserting data to viewmodel.
+                TransactionData transactionData = new TransactionData();
+                transactionData.setDate(choosed_date);
+                transactionData.setAmount(choose_amount);
+                transactionData.setComment(choose_comment);
+                transactionData.setCategory(choose_category);
+
+                Log.e("DAte", choosed_date);
+
+                transactionViewModel = new TransactionViewModel(getActivity().getApplication());
+                transactionViewModel.insert(transactionData);
+
+                getDialog().dismiss();
+
+            }
+        });
 
         return builder.create();
 

@@ -2,7 +2,7 @@ package com.scudderapps.muneem.Repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
-import com.scudderapps.muneem.CategoryDatabase;
+import com.scudderapps.muneem.Database.CategoryDatabase;
 import com.scudderapps.muneem.DAO.CategoryDAO;
 import com.scudderapps.muneem.Model.CategoryData;
 import java.util.List;
@@ -20,17 +20,17 @@ public class CategoryRepository {
     }
 
     public void insert(CategoryData categoryData) {
-        new InsertNoteAsyncTask(categoryDAO).execute(categoryData);
+        new InsertCategory(categoryDAO).execute(categoryData);
     }
 
     public LiveData<List<CategoryData>> getAllCategory() {
         return allCategory;
     }
 
-    private static class InsertNoteAsyncTask extends AsyncTask<CategoryData, Void, Void> {
+    private static class InsertCategory extends AsyncTask<CategoryData, Void, Void> {
         private CategoryDAO categoryDAO;
 
-        private InsertNoteAsyncTask(CategoryDAO noteDao) {
+        private InsertCategory(CategoryDAO noteDao) {
             this.categoryDAO = noteDao;
         }
 

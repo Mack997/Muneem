@@ -1,4 +1,4 @@
-package com.scudderapps.muneem;
+package com.scudderapps.muneem.Database;
 
 import android.content.Context;
 import android.os.AsyncTask;

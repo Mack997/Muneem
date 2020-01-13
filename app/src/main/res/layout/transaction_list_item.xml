@@ -8,8 +8,7 @@
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
     android:layout_marginTop="10dp"
-    android:padding="5dp"
-    android:background="@drawable/list_ittem_bg">
+    android:padding="5dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
