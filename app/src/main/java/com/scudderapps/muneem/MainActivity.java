@@ -5,6 +5,18 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.mikepenz.crossfadedrawerlayout.view.CrossfadeDrawerLayout;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.MiniDrawer;
+import com.mikepenz.materialdrawer.interfaces.ICrossfader;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.util.DrawerUIUtils;
+import com.mikepenz.materialize.util.UIUtils;
+import com.scudderapps.muneem.Adapter.CategoryAdapter;
 import com.scudderapps.muneem.Adapter.MainAdapter;
 import com.scudderapps.muneem.Dialogs.AddCategoryDialog;
 import com.scudderapps.muneem.Dialogs.AddTransactionDialog;
@@ -13,11 +25,13 @@ import com.scudderapps.muneem.Dialogs.CategoryDialog;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -74,6 +88,46 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Setting up the Drawer Layout
+        final PrimaryDrawerItem categoryItem = new PrimaryDrawerItem()
+                .withSelectedColor(getColor(R.color.colorPrimaryDark))
+                .withName(R.string.category).withSetSelected(false)
+                .withSelectedTextColor(getColor(R.color.colorPrimary))
+                .withIcon(R.drawable.category_icon);
+
+        final PrimaryDrawerItem settingItem = new PrimaryDrawerItem()
+                .withSelectedColor(getColor(R.color.colorPrimaryDark))
+                .withName(R.string.settings).withSetSelected(false)
+                .withSelectedTextColor(getColor(R.color.colorPrimary))
+                .withIcon(R.drawable.settings_icon);
+
+        final PrimaryDrawerItem transactionsItem = new PrimaryDrawerItem()
+                .withSelectedColor(getColor(R.color.colorPrimaryDark))
+                .withName(R.string.transactions).withSetSelected(false)
+                .withSelectedTextColor(getColor(R.color.colorPrimary))
+                .withIcon(R.drawable.graph);
+
+        new DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .withTranslucentStatusBar(true)
+                .withSelectedItem(0)
+                .addDrawerItems(transactionsItem, categoryItem, settingItem)
+                .withHasStableIds(true)
+                .withDrawerWidthDp(280)
+                .withSavedInstance(savedInstanceState)
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        if (drawerItem.equals(categoryItem)) {
+                            Intent category = new Intent(MainActivity.this, CategoryActivity.class);
+                            startActivity(category);
+                            finish();
+                        }
+                        return true;
+                    }
+                })
+                .build();
     }
 
     @Override
@@ -87,10 +141,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()){
-            case R.id.categories :
-                Intent startCat = new Intent(MainActivity.this, CategoryActivity.class);
-                startActivity(startCat);
-            break;
         }
         return super.onOptionsItemSelected(item);
     }

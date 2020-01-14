@@ -30,6 +30,7 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
     private RadioButton categoryType;
     private LinearLayout layout;
     private CategoryViewModel categoryViewModel;
+    int expenseTypeID;
 
     public AddCategoryDialog(Context context) {
         this.context = context;
@@ -50,6 +51,21 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
         Button add = view.findViewById(R.id.new_cat_add);
         Button cancel = view.findViewById(R.id.new_cat_cancel);
         layout = view.findViewById(R.id.catDialog);
+
+        Bundle bundle = getArguments();
+        String c_name = bundle.getString("name");
+        String c_type = bundle.getString("type");
+        int c_color = bundle.getInt("color");
+
+        cat_name.setText(c_name);
+        layout.setBackgroundColor(c_color);
+        if (c_type.equals("Expense")){
+            RadioButton expenseBtn = view.findViewById(R.id.expense);
+            expenseBtn.setChecked(true);
+        }else {
+            RadioButton incomeBtn = view.findViewById(R.id.income);
+            incomeBtn.setChecked(true);
+        }
 
         selectedColor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +95,7 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
 
                 //Reading details from the user.
                 new_cat_name = cat_name.getText().toString();
-                final int expenseTypeID = expense_type.getCheckedRadioButtonId();
+                expenseTypeID = expense_type.getCheckedRadioButtonId();
                 categoryType = view.findViewById(expenseTypeID);
                 cat_type = categoryType.getText().toString();
                 ColorDrawable colorDrawable = (ColorDrawable) layout.getBackground();

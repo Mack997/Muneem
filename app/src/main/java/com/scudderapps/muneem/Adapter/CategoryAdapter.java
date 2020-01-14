@@ -1,12 +1,8 @@
 package com.scudderapps.muneem.Adapter;
 
-import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,21 +13,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryHolder> {
 
     private List<CategoryData> categoryList;
     private OnItemClickListener listener;
 
     @NonNull
     @Override
-    public CategoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.category_list_item,parent, false);
-        return new CategoryAdapter.ViewHolder(view);
+    public CategoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_list_item,parent, false);
+        return new CategoryHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryHolder holder, int position) {
 
         CategoryData expense = categoryList.get(position);
         holder.catName.setText(expense.getName());
@@ -59,13 +54,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     }
 
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class CategoryHolder extends RecyclerView.ViewHolder {
 
         TextView catName;
         LinearLayout catLayout;
         ImageView catType;
 
-        public ViewHolder(@NonNull View itemView) {
+        public CategoryHolder(@NonNull View itemView) {
             super(itemView);
             catName = itemView.findViewById(R.id.category_item);
             catLayout = itemView.findViewById(R.id.cat_layout);

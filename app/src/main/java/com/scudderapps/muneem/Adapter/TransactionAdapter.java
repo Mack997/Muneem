@@ -13,21 +13,21 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
+public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.TransactionHolder> {
 
 
     List<TransactionData> transactionData;
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TransactionHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.transaction_list_item,parent, false);
-        return new ViewHolder(view);
+        return new TransactionHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TransactionHolder holder, int position) {
 
         TransactionData transactions = transactionData.get(position);
         holder.catName.setText(transactions.getCategory());
@@ -48,10 +48,10 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class TransactionHolder extends RecyclerView.ViewHolder{
 
         TextView catName, comment, amount, date;
-        public ViewHolder(@NonNull View itemView) {
+        public TransactionHolder(@NonNull View itemView) {
             super(itemView);
             catName = itemView.findViewById(R.id.cat_name);
             comment = itemView.findViewById(R.id.notes);

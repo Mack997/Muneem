@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +14,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.scudderapps.muneem.Adapter.CategoryAdapter;
+import com.scudderapps.muneem.Model.CategoryData;
 import com.scudderapps.muneem.Model.TransactionData;
 import com.scudderapps.muneem.R;
 import com.scudderapps.muneem.ViewModels.TransactionViewModel;
@@ -52,7 +56,7 @@ public class AddTransactionDialog extends AppCompatDialogFragment {
         final Button addTrans = view.findViewById(R.id.new_trans_add);
         final LinearLayout transactionLayout = view.findViewById(R.id.transaction_item);
 
-        final Button canelTrans = view.findViewById(R.id.new_trans_cancel);
+        final Button cancelTrans = view.findViewById(R.id.new_trans_cancel);
 
 
         final Integer month = c.get(Calendar.MONTH);
@@ -83,13 +87,22 @@ public class AddTransactionDialog extends AppCompatDialogFragment {
         category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                CategoryDialog categoryDialog = new CategoryDialog(getContext());
-//                categoryDialog.show(getActivity().getSupportFragmentManager(), "Select Category");
+                CategoryDialog categoryDialog = new CategoryDialog(getContext());
+                categoryDialog.show(getActivity().getSupportFragmentManager(), "Select Category");
 
-                category.setText("Demo");
+                CategoryAdapter categoryAdapter = new CategoryAdapter();
+                categoryAdapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(CategoryData categoryData) {
+                        String catName = categoryData.getName();
+                        category.setText(catName);
+                        Log.e("catName", catName);
+                        Toast.makeText(context, catName, Toast.LENGTH_SHORT).show();
+                        getDialog().dismiss();
+                    }
+                });
             }
         });
-
 
         addTrans.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,13 +127,13 @@ public class AddTransactionDialog extends AppCompatDialogFragment {
             }
         });
 
-        canelTrans.setOnClickListener(new View.OnClickListener() {
+        cancelTrans.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getDialog().cancel();
             }
         });
-        
+
         return builder.create();
 
     }
