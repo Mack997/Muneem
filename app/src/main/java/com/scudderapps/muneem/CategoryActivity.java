@@ -33,6 +33,16 @@ public class CategoryActivity extends AppCompatActivity {
     FloatingActionButton addCategory;
     private AddCategoryDialog addCategoryDialog;
     private CategoryViewModel categoryViewModel;
+    
+    public CategoryData getCategoryData() {
+        return categoryData;
+    }
+    
+    public void setCategoryData(CategoryData categoryData) {
+        this.categoryData = categoryData;
+    }
+    
+    public CategoryData categoryData;
 
 
     @Override
@@ -119,15 +129,18 @@ public class CategoryActivity extends AppCompatActivity {
                 categoryAdapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(CategoryData categoryData) {
-
+                        setCategoryData(categoryData);
                         String catName = categoryData.getName();
                         String expenseType = categoryData.getType();
+                        int id = categoryData.getId();
                         int color = categoryData.getColor();
 
                         Bundle bundle = new Bundle();
                         bundle.putString("name", catName);
                         bundle.putString("type", expenseType);
                         bundle.putInt("color", color);
+                        bundle.putInt("id",id);
+                        bundle.putInt("edit",1);
                         addCategoryDialog.setArguments(bundle);
                         addCategoryDialog.show(getSupportFragmentManager(), "Update Category");
                     }
