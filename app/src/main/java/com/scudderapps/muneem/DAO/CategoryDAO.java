@@ -23,6 +23,6 @@ public interface CategoryDAO {
     @Delete
     void delete(CategoryData... categoryData);
 
-    @Query("SELECT * FROM categorydata")
+    @Query("SELECT * FROM categorydata ORDER BY name")
     LiveData<List<CategoryData>> getCategoryData();
 }

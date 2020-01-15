@@ -115,7 +115,7 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
                 }else{
                     categoryData = new CategoryData();
                 }
-    
+
                 categoryData.setName(new_cat_name);
 //                categoryData.setId(bundle.getInt("id"));
                 categoryData.setType(cat_type);

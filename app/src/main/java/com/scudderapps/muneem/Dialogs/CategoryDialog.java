@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -28,10 +29,10 @@ import androidx.recyclerview.widget.RecyclerView;
 public class CategoryDialog extends AppCompatDialogFragment {
 
     private Context context;
-    RecyclerView categoryView;
-    CategoryAdapter categoryAdapter;
-    FloatingActionButton fab;
-    private CategoryViewModel categoryViewModel;
+    private RecyclerView categoryView;
+    private CategoryAdapter categoryAdapter;
+    private FloatingActionButton fab;
+    private AddTransactionDialog addTransactionDialog;
 
     public CategoryDialog(Context context) {
         this.context = context;
@@ -49,21 +50,47 @@ public class CategoryDialog extends AppCompatDialogFragment {
         Toolbar toolbar = view.findViewById(R.id.cat_toolbar);
         toolbar.setTitle("Select Category");
 
+        addTransactionDialog = new AddTransactionDialog(view.getContext());
         categoryView = view.findViewById(R.id.category_view);
+        categoryAdapter = new CategoryAdapter();
         fab = view.findViewById(R.id.addCategory);
         fab.hide();
 
-        categoryViewModel = ViewModelProviders.of((FragmentActivity) getContext()).get(CategoryViewModel.class);
+        CategoryViewModel categoryViewModel = ViewModelProviders.of((FragmentActivity) getContext()).get(CategoryViewModel.class);
         categoryViewModel.getAllCategory().observe(this, new Observer<List<CategoryData>>() {
             @Override
             public void onChanged(@Nullable List<CategoryData> categoryData) {
                 //setting up the data in recycler view.
                 categoryView.setLayoutManager(new LinearLayoutManager(getContext()));
-                categoryAdapter = new CategoryAdapter();
                 categoryView.setAdapter(categoryAdapter);
                 categoryAdapter.setCategoryList(categoryData);
+                Bundle transData = new Bundle();
+                transData.putString("name", "");
+                transData.putString("type", "");
+                transData.putInt("color", 0);
+                Log.e("Data", transData.toString());
+                addTransactionDialog.setArguments(transData);
+                categoryAdapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(CategoryData categoryData) {
+                        String catName = categoryData.getName();
+                        String expenseType = categoryData.getType();
+                        int color = categoryData.getColor();
+
+                        Bundle transData = new Bundle();
+                        transData.putString("name", catName);
+                        transData.putString("type", expenseType);
+                        transData.putInt("color", color);
+                        Log.e("Data", transData.toString());
+                        addTransactionDialog.setArguments(transData);
+                        getDialog().dismiss();
+                    }
+                });
             }
         });
+
+
+
     return builder.create();
     }
 }
