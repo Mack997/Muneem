@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
+
+import com.scudderapps.muneem.CategoryActivity;
 import com.scudderapps.muneem.Model.CategoryData;
 import com.scudderapps.muneem.R;
 import com.scudderapps.muneem.ViewModels.CategoryViewModel;
@@ -52,7 +54,7 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
         Button cancel = view.findViewById(R.id.new_cat_cancel);
         layout = view.findViewById(R.id.catDialog);
 
-        Bundle bundle = getArguments();
+        final Bundle bundle = getArguments();
         String c_name = bundle.getString("name");
         String c_type = bundle.getString("type");
         int c_color = bundle.getInt("color");
@@ -105,14 +107,25 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
                 cat_type = categoryType.getText().toString();
                 ColorDrawable colorDrawable = (ColorDrawable) layout.getBackground();
                 colorID = colorDrawable.getColor();
+                CategoryData categoryData;
 
                 //inserting data to viewmodel.
-                CategoryData categoryData = new CategoryData();
+                if(bundle.getInt("edit") == 1){
+                    categoryData = ((CategoryActivity)getActivity()).getCategoryData();
+                }else{
+                    categoryData = new CategoryData();
+                }
+    
                 categoryData.setName(new_cat_name);
+//                categoryData.setId(bundle.getInt("id"));
                 categoryData.setType(cat_type);
                 categoryData.setColor(colorID);
                 categoryViewModel = new CategoryViewModel(getActivity().getApplication());
-                categoryViewModel.insert(categoryData);
+                if(bundle.getInt("edit") == 1){
+                    categoryViewModel.update(categoryData);
+                }else{
+                    categoryViewModel.insert(categoryData);
+                }
 
                 getDialog().dismiss();
             }

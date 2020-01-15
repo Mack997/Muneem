@@ -33,4 +33,8 @@ public class CategoryViewModel extends AndroidViewModel {
     public LiveData<List<CategoryData>> getAllCategory() {
         return allCategory;
     }
+    
+    public void update(CategoryData categoryData) {
+        repository.update(categoryData);
+    }
 }
