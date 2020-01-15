@@ -46,22 +46,29 @@ public class CategoryActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         addCategory = findViewById(R.id.addCategory);
         addCategoryDialog = new AddCategoryDialog(CategoryActivity.this);
+
         //Setting up the Drawer Layout
         final PrimaryDrawerItem categoryItem = new PrimaryDrawerItem()
                 .withSelectedColor(getColor(R.color.colorPrimaryDark))
-                .withName(R.string.category).withSetSelected(false)
+                .withName(R.string.category)
+                .withDescription("Manage your Categories")
+                .withSetSelected(false)
                 .withSelectedTextColor(getColor(R.color.colorPrimary))
                 .withIcon(R.drawable.category_icon);
 
         final PrimaryDrawerItem settingItem = new PrimaryDrawerItem()
                 .withSelectedColor(getColor(R.color.colorPrimaryDark))
-                .withName(R.string.settings).withSetSelected(false)
+                .withName(R.string.settings)
+                .withDescription("Manage your preferences")
+                .withSetSelected(false)
                 .withSelectedTextColor(getColor(R.color.colorPrimary))
                 .withIcon(R.drawable.settings_icon);
 
         final PrimaryDrawerItem transactionsItem = new PrimaryDrawerItem()
                 .withSelectedColor(getColor(R.color.colorPrimaryDark))
-                .withName(R.string.transactions).withSetSelected(false)
+                .withName(R.string.transactions)
+                .withDescription("View your Transactions")
+                .withSetSelected(false)
                 .withSelectedTextColor(getColor(R.color.colorPrimary))
                 .withIcon(R.drawable.graph);
 
@@ -91,6 +98,13 @@ public class CategoryActivity extends AppCompatActivity {
         addCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Bundle bundle = new Bundle();
+                bundle.putString("name", "");
+                bundle.putString("type", "");
+                bundle.putInt("color", 0);
+
+                addCategoryDialog.setArguments(bundle);
                 addCategoryDialog.show(getSupportFragmentManager(), "Add Category");
             }
         });
