@@ -7,16 +7,16 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.scudderapps.muneem.CategoryActivity;
 import com.scudderapps.muneem.Model.CategoryData;
 import com.scudderapps.muneem.R;
@@ -30,7 +30,7 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
     private String cat_type;
     private int colorID;
     private RadioButton categoryType;
-    private LinearLayout layout;
+    private RelativeLayout layout;
     private CategoryViewModel categoryViewModel;
     int expenseTypeID;
 
@@ -50,9 +50,8 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
         final TextView cat_name = view.findViewById(R.id.new_cat_name);
         final RadioGroup expense_type = view.findViewById(R.id.cat_type);
         final TextView selectedColor = view.findViewById(R.id.new_cat_color);
-        Button add = view.findViewById(R.id.new_cat_add);
-        Button cancel = view.findViewById(R.id.new_cat_cancel);
-        layout = view.findViewById(R.id.catDialog);
+        FloatingActionButton add = view.findViewById(R.id.new_cat_add);
+        layout = view.findViewById(R.id.catDialogTop);
         RadioButton expense = view.findViewById(R.id.expense);
         RadioButton income = view.findViewById(R.id.income);
         expense.setButtonDrawable(R.drawable.expense_50);
@@ -131,12 +130,12 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
             }
         });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getDialog().cancel();
-            }
-        });
+//        cancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getDialog().cancel();
+//            }
+//        });
         return builder.create();
     }
 }
