@@ -85,8 +85,8 @@ public class AddTransactionDialog extends AppCompatDialogFragment {
             public void onClick(View v) {
                 CategoryDialog categoryDialog = new CategoryDialog(getContext());
                 categoryDialog.show(getActivity().getSupportFragmentManager(), "Select Category");
-                data = categoryDialog.getArguments();
-                category.setText(data.getString("name"));
+//                data = categoryDialog.getArguments();
+//                category.setText(data.getString("name"));
             }
         });
 

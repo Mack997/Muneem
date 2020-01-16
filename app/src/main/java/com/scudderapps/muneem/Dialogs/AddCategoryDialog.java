@@ -111,6 +111,7 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
                 //inserting data to viewmodel.
                 if(bundle.getInt("edit") == 1){
                     categoryData = ((CategoryActivity)getActivity()).getCategoryData();
+                    layout.setBackgroundColor(categoryData.getColor());
                 }else{
                     categoryData = new CategoryData();
                 }
@@ -129,13 +130,6 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
                 getDialog().dismiss();
             }
         });
-
-//        cancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getDialog().cancel();
-//            }
-//        });
         return builder.create();
     }
 }

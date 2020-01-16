@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
@@ -109,10 +110,11 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                int color = Color.parseColor("#8bbabb");
                 Bundle bundle = new Bundle();
                 bundle.putString("name", "");
                 bundle.putString("type", "");
-                bundle.putInt("color", 0);
+                bundle.putInt("color", color );
 
                 addCategoryDialog.setArguments(bundle);
                 addCategoryDialog.show(getSupportFragmentManager(), "Add Category");
