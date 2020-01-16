@@ -29,6 +29,7 @@
                 android:id="@+id/new_cat_name"
                 android:textSize="16sp"
                 android:hint="@string/category_name"
+                android:textColor="@android:color/black"
                 android:focusable="true"
                 android:clickable="true"
                 android:layout_marginTop="40dp"

@@ -8,7 +8,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -49,11 +49,8 @@ public class AddTransactionDialog extends AppCompatDialogFragment {
         final EditText amount = view.findViewById(R.id.trans_amount);
         final TextView category = view.findViewById(R.id.trans_cat);
         final TextView comment = view.findViewById(R.id.trans_notes);
-        final Button addTrans = view.findViewById(R.id.new_trans_add);
+        final FloatingActionButton addTrans = view.findViewById(R.id.new_trans_add);
         final LinearLayout transactionLayout = view.findViewById(R.id.transaction_item);
-
-        final Button cancelTrans = view.findViewById(R.id.new_trans_cancel);
-
 
         final Integer month = c.get(Calendar.MONTH);
         final Integer day = c.get(Calendar.DAY_OF_MONTH);
@@ -110,13 +107,6 @@ public class AddTransactionDialog extends AppCompatDialogFragment {
 
                 getDialog().dismiss();
 
-            }
-        });
-
-        cancelTrans.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getDialog().cancel();
             }
         });
 

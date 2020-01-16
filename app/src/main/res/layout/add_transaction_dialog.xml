@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <LinearLayout
-    android:layout_margin="10dp"
+<RelativeLayout android:layout_margin="10dp"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:background="@drawable/dialog_layout_background"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <LinearLayout
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:id="@+id/transDialogTop"
+        android:layout_height="200dp"
         android:layout_width="match_parent"
-        android:orientation="vertical" android:padding="10dp">
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:background="@color/colorPrimaryDark">
 
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:textStyle="bold" android:textSize="12sp"
+                android:textSize="16sp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="5dp"
                 android:textColor="@android:color/black"
                 android:text="@string/date"
                 android:fontFamily="sans-serif-thin"/>
@@ -23,112 +28,103 @@
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:textSize="24sp"
                 android:hint="@string/date"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
                 android:focusable="true"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/textview_background"
+                android:padding="8dp"
                 android:clickable="true"
-                android:background="@null"
                 android:id="@+id/trans_date"/>
 
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:textColor="@android:color/black"
+                android:textSize="16sp"
                 android:text="@string/amount"
-                android:fontFamily="sans-serif-thin"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/trans_date"
+                android:fontFamily="sans-serif-thin" />
 
             <EditText
+                android:id="@+id/trans_amount"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:textSize="24sp"
+                android:background="@drawable/textview_background"
                 android:hint="@string/amount"
-                android:focusable="true"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:padding="8dp"
+                android:layout_marginTop="35dp"
+                android:layout_below="@id/trans_date"
                 android:clickable="true"
-                android:background="@null"
-                android:id="@+id/trans_amount"
-                android:inputType="numberDecimal"/>
-    </LinearLayout>
+                android:inputType="numberDecimal"
+                android:focusable="true" />
+    </RelativeLayout>
 
 
-    <LinearLayout
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/new_trans_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="170dp"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+    <RelativeLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:layout_below="@id/transDialogTop">
 
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="5dp"
                 android:text="@string/category"
                 android:fontFamily="sans-serif-thin"/>
 
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:textSize="24sp"
+                android:textSize="16sp"
                 android:hint="@string/category"
+                android:layout_marginTop="35dp"
                 android:focusable="true"
                 android:clickable="true"
-                android:background="@null"
+                android:padding="8dp"
+                android:background="@drawable/textview_background"
                 android:id="@+id/trans_cat"/>
 
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:textColor="@android:color/black"
-                android:text="@string/comment"
+                android:textSize="16sp"
+                android:layout_below="@id/trans_cat"
+                android:text="@string/comments"
                 android:fontFamily="sans-serif-thin"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="3dp"/>
 
             <EditText
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:textSize="24sp"
+                android:textSize="16sp"
                 android:hint="@string/comment"
                 android:focusable="true"
                 android:clickable="true"
-                android:background="@null"
+                android:background="@drawable/textview_background"
+                android:layout_marginTop="35dp"
+                android:padding="8dp"
+                android:layout_below="@id/trans_cat"
                 android:id="@+id/trans_notes"
                 android:inputType="textMultiLine"
                 android:maxLines="2"/>
-    </LinearLayout>
+    </RelativeLayout>
 
-
-    <LinearLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-            <Button
-                style="@style/AppTheme"
-                android:layout_margin="5dp"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:textColor="@android:color/white"
-                android:text="@string/cancel"
-                android:background="@android:color/holo_red_light"
-                android:id="@+id/new_trans_cancel"
-                android:layout_weight="1"/>
-
-            <Button
-                style="@style/AppTheme"
-                android:layout_margin="5dp"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:textColor="@android:color/white"
-                android:text="@string/add"
-                android:background="@color/colorAccent"
-                android:id="@+id/new_trans_add"
-                android:layout_weight="1"/>
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>
