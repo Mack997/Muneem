@@ -23,5 +23,6 @@
     <string name="color">Color</string>
     <string name="new_category">New Category</string>
     <string name="comments">Comments</string>
+    <string name="demo">Demo</string>
 
 </resources>
