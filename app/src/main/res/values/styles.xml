@@ -21,4 +21,11 @@
         <item name="android:textColorSecondary">@android:color/black</item>
     </style>
 
+    <style name="CategoryRadioButtonStyle">
+        <item name="android:paddingStart">6dp</item>
+        <item name="android:paddingEnd">6dp</item>
+        <item name="android:textColor">@drawable/radio_btn_selected_text_color_checked_state</item>
+        <item name="android:background">@drawable/radio_btn_selected_background_checked_state</item>
+    </style>
+
 </resources>

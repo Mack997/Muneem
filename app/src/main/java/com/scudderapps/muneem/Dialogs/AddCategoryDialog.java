@@ -53,6 +53,10 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
         Button add = view.findViewById(R.id.new_cat_add);
         Button cancel = view.findViewById(R.id.new_cat_cancel);
         layout = view.findViewById(R.id.catDialog);
+        RadioButton expense = view.findViewById(R.id.expense);
+        RadioButton income = view.findViewById(R.id.income);
+        expense.setButtonDrawable(R.drawable.expense_50);
+        income.setButtonDrawable(R.drawable.income_50);
 
         final Bundle bundle = getArguments();
         String c_name = bundle.getString("name");
@@ -62,16 +66,12 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
         layout.setBackgroundColor(c_color);
 
         if (c_type.equals("Expense")) {
-            RadioButton expenseBtn = view.findViewById(R.id.expense);
-            expenseBtn.setChecked(true);
+            expense.setChecked(true);
         } else if (c_type.equals("Income")){
-            RadioButton incomeBtn = view.findViewById(R.id.income);
-            incomeBtn.setChecked(true);
+            income.setChecked(true);
         } else{
-            RadioButton incomeBtn = view.findViewById(R.id.income);
-            incomeBtn.setChecked(false);
-            RadioButton expenseBtn = view.findViewById(R.id.expense);
-            expenseBtn.setChecked(false);
+            income.setChecked(false);
+            expense.setChecked(false);
         }
 
         selectedColor.setOnClickListener(new View.OnClickListener() {
