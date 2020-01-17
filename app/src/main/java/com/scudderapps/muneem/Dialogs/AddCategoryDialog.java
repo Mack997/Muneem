@@ -5,8 +5,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -29,10 +31,11 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
     private String new_cat_name;
     private String cat_type;
     private int colorID;
+    int expenseTypeID;
+
     private RadioButton categoryType;
     private RelativeLayout layout;
     private CategoryViewModel categoryViewModel;
-    int expenseTypeID;
 
     public AddCategoryDialog(Context context) {
         this.context = context;
@@ -47,32 +50,36 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
         final View view = layoutInflater.inflate(R.layout.add_category_dialog, null);
         builder.setView(view);
 
-        final TextView cat_name = view.findViewById(R.id.new_cat_name);
+        //Initiating widgets
+        final EditText cat_name = view.findViewById(R.id.new_cat_name);
         final RadioGroup expense_type = view.findViewById(R.id.cat_type);
         final TextView selectedColor = view.findViewById(R.id.new_cat_color);
-        FloatingActionButton add = view.findViewById(R.id.new_cat_add);
+        final FloatingActionButton add = view.findViewById(R.id.new_cat_add);
+        final RadioButton expense = view.findViewById(R.id.expense);
+        final RadioButton income = view.findViewById(R.id.income);
         layout = view.findViewById(R.id.catDialogTop);
-        RadioButton expense = view.findViewById(R.id.expense);
-        RadioButton income = view.findViewById(R.id.income);
         expense.setButtonDrawable(R.drawable.expense_50);
         income.setButtonDrawable(R.drawable.income_50);
 
+        //reading data from bundle sent from Category Activity
         final Bundle bundle = getArguments();
-        String c_name = bundle.getString("name");
-        String c_type = bundle.getString("type");
-        int c_color = bundle.getInt("color");
-        cat_name.setText(c_name);
-        layout.setBackgroundColor(c_color);
+        String bundleName = bundle.getString("name");
+        String bundleType = bundle.getString("type");
+        final int bundleColor = bundle.getInt("color");
 
-        if (c_type.equals("Expense")) {
+        //setting the default values to the dialog box
+        cat_name.setText(bundleName);
+        layout.setBackgroundColor(bundleColor);
+        if (bundleType.equals("Expense")) {
             expense.setChecked(true);
-        } else if (c_type.equals("Income")){
+        } else if (bundleType.equals("Income")){
             income.setChecked(true);
         } else{
+            expense.setChecked(true);
             income.setChecked(false);
-            expense.setChecked(false);
         }
 
+        //getting color from color selector
         selectedColor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,16 +106,20 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
             @Override
             public void onClick(View v) {
 
-                //Reading details from the user.
+                //Reading details from the user from dialog box
                 new_cat_name = cat_name.getText().toString();
                 expenseTypeID = expense_type.getCheckedRadioButtonId();
                 categoryType = view.findViewById(expenseTypeID);
                 cat_type = categoryType.getText().toString();
                 ColorDrawable colorDrawable = (ColorDrawable) layout.getBackground();
                 colorID = colorDrawable.getColor();
-                CategoryData categoryData;
 
-                //inserting data to viewmodel.
+                CategoryData categoryData;
+                if (TextUtils.isEmpty(new_cat_name)) {
+                    cat_name.setError("Enter a category");
+                }
+
+                //inserting data to view model.
                 if(bundle.getInt("edit") == 1){
                     categoryData = ((CategoryActivity)getActivity()).getCategoryData();
                     layout.setBackgroundColor(categoryData.getColor());

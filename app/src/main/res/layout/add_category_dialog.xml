@@ -96,38 +96,20 @@
 
             </RadioGroup>
 
-            <LinearLayout
-                android:layout_below="@id/cat_type"
+            <TextView
+                android:background="@color/colorPrimaryDark"
+                android:id="@+id/new_cat_color"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:layout_marginTop="5dp">
-
-                <ImageView
-                    android:id="@+id/selectColor"
-                    android:layout_below="@id/cat_type"
-                    android:layout_toLeftOf="@id/new_cat_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginStart="3dp"
-                    android:src="@drawable/select_color"/>
-
-                <TextView
-                    android:id="@+id/new_cat_color"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/cat_type"
-                    android:layout_marginTop="12dp"
-                    android:padding="8dp"
-                    android:fontFamily="sans-serif-thin"
-                    android:text="@string/select_color"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="10dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
+                android:layout_height="50dp"
+                android:layout_below="@id/cat_type"
+                android:layout_marginTop="12dp"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:text="@string/select_color"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:layout_marginBottom="10dp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
