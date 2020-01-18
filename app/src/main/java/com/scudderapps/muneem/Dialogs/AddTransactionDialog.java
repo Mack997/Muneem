@@ -6,12 +6,14 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.scudderapps.muneem.Model.TransactionData;
 import com.scudderapps.muneem.R;
@@ -22,43 +24,56 @@ import java.util.Calendar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-public class AddTransactionDialog extends AppCompatDialogFragment {
+public class AddTransactionDialog extends AppCompatDialogFragment{
 
     private Context context;
-    final Calendar c = Calendar.getInstance();
-
+    Calendar c = Calendar.getInstance();
+    TextView category;
+    TextView date;
+    EditText amount;
+    TextView comment;
+    TransactionData transactionData;
+    RelativeLayout transactionRL;
+    int month;
+    int day;
+    int year;
+    
+    
     private  String choose_amount, choose_comment, choose_category, choosed_date;
     private TransactionViewModel transactionViewModel;
     Bundle data;
 
-    public AddTransactionDialog(Context context) {
-        this.context = context;
+    public AddTransactionDialog() {
+        this.context = getActivity();
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        final View view = layoutInflater.inflate(R.layout.add_transaction_dialog, null);
+        View view = layoutInflater.inflate(R.layout.add_transaction_dialog, null);
         builder.setView(view);
-
-        final TextView date = view.findViewById(R.id.trans_date);
-        final EditText amount = view.findViewById(R.id.trans_amount);
-        final TextView category = view.findViewById(R.id.trans_cat);
-        final TextView comment = view.findViewById(R.id.trans_notes);
-        final FloatingActionButton addTrans = view.findViewById(R.id.new_trans_add);
-        final LinearLayout transactionLayout = view.findViewById(R.id.transaction_item);
-
-        final Integer month = c.get(Calendar.MONTH);
-        final Integer day = c.get(Calendar.DAY_OF_MONTH);
-        final Integer year = c.get(Calendar.YEAR);
-
+        
+        date = view.findViewById(R.id.trans_date);
+        amount = view.findViewById(R.id.trans_amount);
+        category = view.findViewById(R.id.trans_cat);
+        comment = view.findViewById(R.id.trans_notes);
+        FloatingActionButton addTrans = view.findViewById(R.id.new_trans_add);
+        LinearLayout transactionLayout = view.findViewById(R.id.transaction_item);
+        transactionRL = view.findViewById(R.id.transDialogTop);
+    
+        month = c.get(Calendar.MONTH);
+        day = c.get(Calendar.DAY_OF_MONTH);
+        year = c.get(Calendar.YEAR);
         c.set(year, month, day, 0, 0, 0);
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM, yyyy");
-        final String choose_date = dateFormat.format(c.getTime());
+        String choose_date = dateFormat.format(c.getTime());
         date.setText(choose_date);
 
         date.setOnClickListener(new View.OnClickListener() {
@@ -80,10 +95,11 @@ public class AddTransactionDialog extends AppCompatDialogFragment {
         category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CategoryDialog categoryDialog = new CategoryDialog(getContext());
-                categoryDialog.show(getActivity().getSupportFragmentManager(), "Select Category");
-//                data = categoryDialog.getArguments();
-//                category.setText(data.getString("name"));
+                FragmentManager fragmentManager = getChildFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                CategoryDialog categoryDialog = new CategoryDialog(getActivity());
+                fragmentTransaction.add(categoryDialog, "Select Category");
+                fragmentTransaction.commit();
             }
         });
 
@@ -93,10 +109,9 @@ public class AddTransactionDialog extends AppCompatDialogFragment {
                 choose_amount = amount.getText().toString();
                 choose_comment = comment.getText().toString();
                 choose_category = category.getText().toString();
-                choose_category = category.getText().toString();
 
                 //inserting data to viewmodel.
-                TransactionData transactionData = new TransactionData();
+                transactionData = new TransactionData();
                 transactionData.setDate(choosed_date);
                 transactionData.setAmount(choose_amount);
                 transactionData.setComment(choose_comment);
@@ -112,5 +127,10 @@ public class AddTransactionDialog extends AppCompatDialogFragment {
 
         return builder.create();
 
+    }
+    
+    public void setCategoryToTransactionDialog(String categoryName, int color){
+        category.setText(categoryName);
+        transactionRL.setBackgroundColor(color);
     }
 }
