@@ -17,6 +17,7 @@ import com.scudderapps.muneem.ViewModels.CategoryViewModel;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.appcompat.widget.Toolbar;
@@ -33,11 +34,17 @@ public class CategoryDialog extends AppCompatDialogFragment {
     private CategoryAdapter categoryAdapter;
     private FloatingActionButton fab;
     private AddTransactionDialog addTransactionDialog;
+    
 
     public CategoryDialog(Context context) {
         this.context = context;
     }
-
+    
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+    }
+    
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -50,7 +57,7 @@ public class CategoryDialog extends AppCompatDialogFragment {
         Toolbar toolbar = view.findViewById(R.id.cat_toolbar);
         toolbar.setTitle("Select Category");
 
-        addTransactionDialog = new AddTransactionDialog(view.getContext());
+        addTransactionDialog = new AddTransactionDialog();
         categoryView = view.findViewById(R.id.category_view);
         categoryAdapter = new CategoryAdapter();
         fab = view.findViewById(R.id.addCategory);
@@ -68,7 +75,7 @@ public class CategoryDialog extends AppCompatDialogFragment {
                 transData.putString("name", "");
                 transData.putString("type", "");
                 transData.putInt("color", 0);
-                Log.e("Data", transData.toString());
+                Log.e("Databefore", transData.toString());
                 addTransactionDialog.setArguments(transData);
                 categoryAdapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
                     @Override
@@ -76,12 +83,16 @@ public class CategoryDialog extends AppCompatDialogFragment {
                         String catName = categoryData.getName();
                         String expenseType = categoryData.getType();
                         int color = categoryData.getColor();
+                        if (getParentFragment() instanceof AddTransactionDialog) {
+                            ((AddTransactionDialog) getParentFragment())
+                                    .setCategoryToTransactionDialog(catName, color);
+                        }
 
                         Bundle transData = new Bundle();
                         transData.putString("name", catName);
                         transData.putString("type", expenseType);
                         transData.putInt("color", color);
-                        Log.e("Data", transData.toString());
+                        Log.e("Dataafter", transData.toString());
                         addTransactionDialog.setArguments(transData);
                         getDialog().dismiss();
                     }

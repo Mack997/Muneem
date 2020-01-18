@@ -15,6 +15,8 @@ import com.scudderapps.muneem.Dialogs.AddTransactionDialog;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.Menu;
@@ -69,9 +71,12 @@ public class MainActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                AddTransactionDialog transactionDialog = new AddTransactionDialog(MainActivity.this);
-                transactionDialog.show(getSupportFragmentManager(), "Add Transaction");
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                AddTransactionDialog transactionDialog = new AddTransactionDialog();
+                fragmentTransaction.add(transactionDialog, "Add Transaction");
+                fragmentTransaction.commit();
+//                transactionDialog.show(getSupportFragmentManager(), "Add Transaction");
 
             }
         });
