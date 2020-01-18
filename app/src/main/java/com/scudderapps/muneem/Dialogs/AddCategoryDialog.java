@@ -5,9 +5,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -19,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.scudderapps.muneem.CategoryActivity;
 import com.scudderapps.muneem.Model.CategoryData;
 import com.scudderapps.muneem.R;
@@ -28,10 +32,11 @@ import petrov.kristiyan.colorpicker.ColorPicker;
 public class AddCategoryDialog extends AppCompatDialogFragment  {
 
     private Context context;
-    private String new_cat_name;
+    private String updated_cat_name;
     private String cat_type;
     private int colorID;
     int expenseTypeID;
+    CategoryData categoryData;
 
     private RadioButton categoryType;
     private RelativeLayout layout;
@@ -53,7 +58,7 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
         //Initiating widgets
         final EditText cat_name = view.findViewById(R.id.new_cat_name);
         final RadioGroup expense_type = view.findViewById(R.id.cat_type);
-        final TextView selectedColor = view.findViewById(R.id.new_cat_color);
+        final Button selectedColor = view.findViewById(R.id.new_cat_color);
         final FloatingActionButton add = view.findViewById(R.id.new_cat_add);
         final RadioButton expense = view.findViewById(R.id.expense);
         final RadioButton income = view.findViewById(R.id.income);
@@ -69,7 +74,9 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
 
         //setting the default values to the dialog box
         cat_name.setText(bundleName);
+        System.out.println(cat_name.length());
         layout.setBackgroundColor(bundleColor);
+        selectedColor.setBackgroundColor(bundleColor);
         if (bundleType.equals("Expense")) {
             expense.setChecked(true);
         } else if (bundleType.equals("Income")){
@@ -90,6 +97,7 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
                     @Override
                     public void onChooseColor(int position, int color) {
                         layout.setBackgroundColor(color);
+                        selectedColor.setBackgroundColor(color);
                         colorPicker.dismissDialog();
                     }
                     @Override
@@ -107,37 +115,38 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
             public void onClick(View v) {
 
                 //Reading details from the user from dialog box
-                new_cat_name = cat_name.getText().toString();
+                updated_cat_name = cat_name.getText().toString().trim();
                 expenseTypeID = expense_type.getCheckedRadioButtonId();
                 categoryType = view.findViewById(expenseTypeID);
                 cat_type = categoryType.getText().toString();
                 ColorDrawable colorDrawable = (ColorDrawable) layout.getBackground();
                 colorID = colorDrawable.getColor();
 
-                CategoryData categoryData;
-                if (TextUtils.isEmpty(new_cat_name)) {
-                    cat_name.setError("Enter a category");
-                }
+                if (cat_name.getText().toString().length() < 1) {
+                    cat_name.setError("Enter Category");
+                    Toast.makeText(context, "Enter Category", Toast.LENGTH_SHORT).show();
+                } else {
+                    if(bundle.getInt("edit") == 1){
 
-                //inserting data to view model.
-                if(bundle.getInt("edit") == 1){
-                    categoryData = ((CategoryActivity)getActivity()).getCategoryData();
-                    layout.setBackgroundColor(categoryData.getColor());
-                }else{
-                    categoryData = new CategoryData();
-                }
+                        categoryData = ((CategoryActivity)getActivity()).getCategoryData();
+                        layout.setBackgroundColor(categoryData.getColor());
+                    }else{
+                        categoryData = new CategoryData();
+                    }
 
-                categoryData.setName(new_cat_name);
+                    categoryData.setName(updated_cat_name);
 //                categoryData.setId(bundle.getInt("id"));
-                categoryData.setType(cat_type);
-                categoryData.setColor(colorID);
-                categoryViewModel = new CategoryViewModel(getActivity().getApplication());
-                if(bundle.getInt("edit") == 1){
-                    categoryViewModel.update(categoryData);
-                }else{
-                    categoryViewModel.insert(categoryData);
+                    categoryData.setType(cat_type);
+                    categoryData.setColor(colorID);
+                    categoryViewModel = new CategoryViewModel(getActivity().getApplication());
+                    if(bundle.getInt("edit") == 1){
+                        categoryViewModel.update(categoryData);
+                    }else{
+                        categoryViewModel.insert(categoryData);
+                    }
                 }
 
+                
                 getDialog().dismiss();
             }
         });
