@@ -24,5 +24,6 @@
     <string name="new_category">New Category</string>
     <string name="comments">Comments</string>
     <string name="demo">Demo</string>
+    <string name="transaction_added">Transaction Added</string>
 
 </resources>

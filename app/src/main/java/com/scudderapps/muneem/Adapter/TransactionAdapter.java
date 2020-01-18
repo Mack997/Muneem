@@ -17,6 +17,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
 
     List<TransactionData> transactionData;
+    private TransactionAdapter.OnItemClickListener listener;
 
     @NonNull
     @Override
@@ -49,6 +50,10 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         notifyDataSetChanged();
     }
 
+    public TransactionData getTransactionAt(int position){
+        return transactionData.get(position);
+    }
+
     public class TransactionHolder extends RecyclerView.ViewHolder{
 
         TextView catName, comment, amount, date;
@@ -58,6 +63,26 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             comment = itemView.findViewById(R.id.notes);
             amount = itemView.findViewById(R.id.amount);
             date = itemView.findViewById(R.id.cat_date);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(transactionData.get(position));
+                    }
+                }
+            });
         }
+
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(TransactionData transactionData);
+    }
+
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }

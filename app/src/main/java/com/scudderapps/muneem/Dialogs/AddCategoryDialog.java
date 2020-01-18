@@ -5,9 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,14 +12,12 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
 import com.scudderapps.muneem.CategoryActivity;
 import com.scudderapps.muneem.Model.CategoryData;
 import com.scudderapps.muneem.R;
@@ -32,15 +27,20 @@ import petrov.kristiyan.colorpicker.ColorPicker;
 public class AddCategoryDialog extends AppCompatDialogFragment  {
 
     private Context context;
-    private String updated_cat_name;
-    private String cat_type;
-    private int colorID;
-    int expenseTypeID;
-    CategoryData categoryData;
+    private String updated_cat_name, cat_type;
+    private int colorID, expenseTypeID;
+    private CategoryData categoryData;
 
     private RadioButton categoryType;
     private RelativeLayout layout;
     private CategoryViewModel categoryViewModel;
+    private Bundle bundle;
+
+    private EditText cat_name;
+    private RadioGroup expense_type;
+    private Button selectedColor;
+    private FloatingActionButton add;
+    private RadioButton expense, income;
 
     public AddCategoryDialog(Context context) {
         this.context = context;
@@ -56,18 +56,18 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
         builder.setView(view);
 
         //Initiating widgets
-        final EditText cat_name = view.findViewById(R.id.new_cat_name);
-        final RadioGroup expense_type = view.findViewById(R.id.cat_type);
-        final Button selectedColor = view.findViewById(R.id.new_cat_color);
-        final FloatingActionButton add = view.findViewById(R.id.new_cat_add);
-        final RadioButton expense = view.findViewById(R.id.expense);
-        final RadioButton income = view.findViewById(R.id.income);
+        cat_name = view.findViewById(R.id.new_cat_name);
+        expense_type = view.findViewById(R.id.cat_type);
+        selectedColor = view.findViewById(R.id.new_cat_color);
+        add = view.findViewById(R.id.new_cat_add);
+        expense = view.findViewById(R.id.expense);
+        income = view.findViewById(R.id.income);
         layout = view.findViewById(R.id.catDialogTop);
         expense.setButtonDrawable(R.drawable.expense_50);
         income.setButtonDrawable(R.drawable.income_50);
 
         //reading data from bundle sent from Category Activity
-        final Bundle bundle = getArguments();
+        bundle = getArguments();
         String bundleName = bundle.getString("name");
         String bundleType = bundle.getString("type");
         final int bundleColor = bundle.getInt("color");
@@ -110,11 +110,11 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
             }
         });
 
+
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //Reading details from the user from dialog box
                 updated_cat_name = cat_name.getText().toString().trim();
                 expenseTypeID = expense_type.getCheckedRadioButtonId();
                 categoryType = view.findViewById(expenseTypeID);
@@ -135,9 +135,9 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
                     }
 
                     categoryData.setName(updated_cat_name);
-//                categoryData.setId(bundle.getInt("id"));
                     categoryData.setType(cat_type);
                     categoryData.setColor(colorID);
+
                     categoryViewModel = new CategoryViewModel(getActivity().getApplication());
                     if(bundle.getInt("edit") == 1){
                         categoryViewModel.update(categoryData);
@@ -145,8 +145,6 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
                         categoryViewModel.insert(categoryData);
                     }
                 }
-
-                
                 getDialog().dismiss();
             }
         });

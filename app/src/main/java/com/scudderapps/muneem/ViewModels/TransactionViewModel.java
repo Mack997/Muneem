@@ -33,4 +33,8 @@ public class TransactionViewModel extends AndroidViewModel {
     public LiveData<List<TransactionData>> getAllTransactions() {
         return allTransactions;
     }
+
+    public void delete(TransactionData transactionData){
+        repository.delete(transactionData);
+    }
 }
