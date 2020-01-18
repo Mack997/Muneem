@@ -31,7 +31,8 @@ import androidx.fragment.app.FragmentTransaction;
 public class AddTransactionDialog extends AppCompatDialogFragment{
 
     private Context context;
-    Calendar c = Calendar.getInstance();
+    Calendar c;
+    
     TextView category;
     TextView date;
     EditText amount;
@@ -41,16 +42,13 @@ public class AddTransactionDialog extends AppCompatDialogFragment{
     int month;
     int day;
     int year;
+    Integer choose_color = null;
     
     
     private  String choose_amount, choose_comment, choose_category, choosed_date;
     private TransactionViewModel transactionViewModel;
     Bundle data;
-
-    public AddTransactionDialog() {
-        this.context = getActivity();
-    }
-
+    
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -58,6 +56,8 @@ public class AddTransactionDialog extends AppCompatDialogFragment{
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.add_transaction_dialog, null);
+        c = Calendar.getInstance();
+        context = getActivity();
         builder.setView(view);
         
         date = view.findViewById(R.id.trans_date);
@@ -72,7 +72,8 @@ public class AddTransactionDialog extends AppCompatDialogFragment{
         day = c.get(Calendar.DAY_OF_MONTH);
         year = c.get(Calendar.YEAR);
         c.set(year, month, day, 0, 0, 0);
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM, yyyy");
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM, yyyy");
         String choose_date = dateFormat.format(c.getTime());
         date.setText(choose_date);
 
@@ -116,6 +117,9 @@ public class AddTransactionDialog extends AppCompatDialogFragment{
                 transactionData.setAmount(choose_amount);
                 transactionData.setComment(choose_comment);
                 transactionData.setCategory(choose_category);
+                if(choose_color != null){
+                    transactionData.setColor(choose_color);
+                }
 
                 transactionViewModel = new TransactionViewModel(getActivity().getApplication());
                 transactionViewModel.insert(transactionData);
@@ -132,5 +136,6 @@ public class AddTransactionDialog extends AppCompatDialogFragment{
     public void setCategoryToTransactionDialog(String categoryName, int color){
         category.setText(categoryName);
         transactionRL.setBackgroundColor(color);
+        choose_color = color;
     }
 }

@@ -12,6 +12,16 @@ public class TransactionData {
     String date;
     String amount;
     String comment;
+    
+    public int getColor() {
+        return color;
+    }
+    
+    public void setColor(int color) {
+        this.color = color;
+    }
+    
+    int color;
 
     public String getCategory() {
         return category;

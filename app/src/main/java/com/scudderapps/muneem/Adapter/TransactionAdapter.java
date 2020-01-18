@@ -34,6 +34,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         holder.amount.setText(transactions.getAmount());
         holder.comment.setText(transactions.getComment());
         holder.date.setText(transactions.getDate());
+        holder.itemView.setBackgroundColor(transactions.getColor());
 
     }
 
