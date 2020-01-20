@@ -3,20 +3,21 @@ package com.scudderapps.muneem.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.scudderapps.muneem.Model.TransactionData;
 import com.scudderapps.muneem.R;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.TransactionHolder> {
 
 
-    List<TransactionData> transactionData;
+    List<TransactionData> transactionList;
     private TransactionAdapter.OnItemClickListener listener;
 
     @NonNull
@@ -30,46 +31,52 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @Override
     public void onBindViewHolder(@NonNull TransactionHolder holder, int position) {
 
-        TransactionData transactions = transactionData.get(position);
+        TransactionData transactions = transactionList.get(position);
         holder.catName.setText(transactions.getCategory());
         holder.amount.setText(transactions.getAmount());
         holder.comment.setText(transactions.getComment());
         holder.date.setText(transactions.getDate());
+        if (transactions.getType().equals("Expense")) {
+            holder.image_type.setBackgroundResource(R.drawable.expense_50);
+        }else {
+            holder.image_type.setBackgroundResource(R.drawable.income_50);
+        }
         holder.itemView.setBackgroundColor(transactions.getColor());
-
     }
 
 
     @Override
     public int getItemCount() {
-        return transactionData.size();
+        return transactionList.size();
     }
 
     public void setTransactionList(List<TransactionData> transactionData){
-        this.transactionData = transactionData;
+        this.transactionList = transactionData;
         notifyDataSetChanged();
     }
 
     public TransactionData getTransactionAt(int position){
-        return transactionData.get(position);
+        return transactionList.get(position);
     }
 
     public class TransactionHolder extends RecyclerView.ViewHolder{
 
         TextView catName, comment, amount, date;
+        ImageView image_type;
         public TransactionHolder(@NonNull View itemView) {
             super(itemView);
             catName = itemView.findViewById(R.id.cat_name);
             comment = itemView.findViewById(R.id.notes);
             amount = itemView.findViewById(R.id.amount);
             date = itemView.findViewById(R.id.cat_date);
+            image_type = itemView.findViewById(R.id.trans_img);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(transactionData.get(position));
+                        listener.onItemClick(transactionList.get(position));
                     }
                 }
             });

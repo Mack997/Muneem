@@ -10,11 +10,10 @@ import android.view.View;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.scudderapps.muneem.Model.TransactionData;
 import com.scudderapps.muneem.R;
 import com.scudderapps.muneem.ViewModels.TransactionViewModel;
@@ -38,8 +37,9 @@ public class AddTransactionDialog extends AppCompatDialogFragment{
     private RelativeLayout transactionRL;
     private int month, day, year;
     private Integer choose_color = null;
+    private String fetched_type;
     private FloatingActionButton addTrans;
-    private  String choose_amount, choose_comment, choose_category, choose_date;
+    private String choose_amount, choose_comment, choose_category, choose_date;
     private TransactionViewModel transactionViewModel;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM, yyyy");
 
@@ -65,7 +65,7 @@ public class AddTransactionDialog extends AppCompatDialogFragment{
         month = c.get(Calendar.MONTH);
         day = c.get(Calendar.DAY_OF_MONTH);
         year = c.get(Calendar.YEAR);
-        c.set(year, month, day, 0, 0, 0);
+        c.set(year, month, day);
         String choose_date = dateFormat.format(c.getTime());
         date.setText(choose_date);
 
@@ -75,7 +75,7 @@ public class AddTransactionDialog extends AppCompatDialogFragment{
                 DatePickerDialog datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        c.set(year, monthOfYear, dayOfMonth, 0, 0, 0);
+                        c.set(year, monthOfYear, dayOfMonth);
                         AddTransactionDialog.this.choose_date = dateFormat.format(c.getTime());
                         date.setText(AddTransactionDialog.this.choose_date);
                     }
@@ -103,29 +103,36 @@ public class AddTransactionDialog extends AppCompatDialogFragment{
                 choose_amount = amount.getText().toString();
                 choose_comment = comment.getText().toString();
                 choose_category = category.getText().toString();
+                if (choose_amount.isEmpty()){
+                    amount.setError("Please Enter an amount");
+                    Toast.makeText(context, "Please Enter a amount", Toast.LENGTH_SHORT).show();
+                } else if (choose_category.isEmpty()){
+                    category.setError("Please choose a category");
+                    Toast.makeText(context, "Please select a Category", Toast.LENGTH_SHORT).show();
+                } else {
+                    transactionData = new TransactionData();
+                    transactionData.setDate(date.getText().toString());
+                    transactionData.setAmount(choose_amount);
+                    transactionData.setComment(choose_comment);
+                    transactionData.setCategory(choose_category);
+                    transactionData.setType(fetched_type);
+                    if (choose_color != null) {
+                        transactionData.setColor(choose_color);
+                    }
 
-                transactionData = new TransactionData();
-                transactionData.setDate(AddTransactionDialog.this.choose_date);
-                transactionData.setAmount(choose_amount);
-                transactionData.setComment(choose_comment);
-                transactionData.setCategory(choose_category);
-                if(choose_color != null){
-                    transactionData.setColor(choose_color);
+                    transactionViewModel = new TransactionViewModel(getActivity().getApplication());
+                    transactionViewModel.insert(transactionData);
+                    getDialog().dismiss();
                 }
-
-                transactionViewModel = new TransactionViewModel(getActivity().getApplication());
-                transactionViewModel.insert(transactionData);
-
-                getDialog().dismiss();
-
             }
         });
         return builder.create();
     }
     
-    public void setCategoryToTransactionDialog(String categoryName, int color){
+    public void setCategoryToTransactionDialog(String categoryName, int color, String getType){
         category.setText(categoryName);
         transactionRL.setBackgroundColor(color);
         choose_color = color;
+        fetched_type = getType;
     }
 }

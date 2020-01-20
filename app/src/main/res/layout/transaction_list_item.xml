@@ -75,6 +75,7 @@
             android:text="@string/amount"
             android:textSize="16sp"
             android:gravity="center"
+            android:textColor="@android:color/black"
             android:layout_marginEnd="8dp"/>
     </RelativeLayout>
 

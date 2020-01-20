@@ -7,15 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.scudderapps.muneem.Adapter.CategoryAdapter;
-import com.scudderapps.muneem.Model.CategoryData;
-import com.scudderapps.muneem.R;
-import com.scudderapps.muneem.ViewModels.CategoryViewModel;
-
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +17,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.scudderapps.muneem.Adapter.CategoryAdapter;
+import com.scudderapps.muneem.Model.CategoryData;
+import com.scudderapps.muneem.R;
+import com.scudderapps.muneem.ViewModels.CategoryViewModel;
+
+import java.util.List;
 
 public class CategoryDialog extends AppCompatDialogFragment {
 
@@ -85,7 +84,7 @@ public class CategoryDialog extends AppCompatDialogFragment {
                         int color = categoryData.getColor();
                         if (getParentFragment() instanceof AddTransactionDialog) {
                             ((AddTransactionDialog) getParentFragment())
-                                    .setCategoryToTransactionDialog(catName, color);
+                                    .setCategoryToTransactionDialog(catName, color, expenseType);
                         }
 
                         Bundle transData = new Bundle();

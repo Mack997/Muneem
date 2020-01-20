@@ -7,10 +7,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.scudderapps.muneem.Model.CategoryData;
-import com.scudderapps.muneem.R;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.scudderapps.muneem.Model.CategoryData;
+import com.scudderapps.muneem.R;
+
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryHolder> {
@@ -28,11 +30,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @Override
     public void onBindViewHolder(@NonNull CategoryHolder holder, int position) {
 
-        CategoryData expense = categoryList.get(position);
-        holder.catName.setText(expense.getName());
-        holder.catLayout.setBackgroundColor(expense.getColor());
+        CategoryData categoriesEntry = categoryList.get(position);
+        holder.catName.setText(categoriesEntry.getName());
+        holder.catLayout.setBackgroundColor(categoriesEntry.getColor());
 
-        if (expense.getType().equals("Expense")){
+        if (categoriesEntry.getType().equals("Expense")){
             holder.catType.setBackgroundResource(R.drawable.expense);
         } else {
             holder.catType.setBackgroundResource(R.drawable.income);

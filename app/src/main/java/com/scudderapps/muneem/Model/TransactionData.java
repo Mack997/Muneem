@@ -12,6 +12,8 @@ public class TransactionData {
     String date;
     String amount;
     String comment;
+    String Type;
+    int color;
     
     public int getColor() {
         return color;
@@ -20,8 +22,6 @@ public class TransactionData {
     public void setColor(int color) {
         this.color = color;
     }
-    
-    int color;
 
     public String getCategory() {
         return category;
@@ -63,5 +63,13 @@ public class TransactionData {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getType() {
+        return Type;
+    }
+
+    public void setType(String type) {
+        Type = type;
     }
 }

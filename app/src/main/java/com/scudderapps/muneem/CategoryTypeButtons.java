@@ -3,7 +3,6 @@ package com.scudderapps.muneem;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.CompoundButton;
-import android.widget.RadioButton;
 
 import androidx.appcompat.widget.AppCompatRadioButton;
 

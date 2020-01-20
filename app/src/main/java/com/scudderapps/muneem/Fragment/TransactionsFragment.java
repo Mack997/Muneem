@@ -1,6 +1,9 @@
 package com.scudderapps.muneem.Fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,17 +14,9 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.scudderapps.muneem.Adapter.CategoryAdapter;
 import com.scudderapps.muneem.Adapter.TransactionAdapter;
-import com.scudderapps.muneem.Dialogs.AddTransactionDialog;
-import com.scudderapps.muneem.Model.CategoryData;
 import com.scudderapps.muneem.Model.TransactionData;
 import com.scudderapps.muneem.R;
-import com.scudderapps.muneem.ViewModels.CategoryViewModel;
 import com.scudderapps.muneem.ViewModels.TransactionViewModel;
 
 import java.util.List;

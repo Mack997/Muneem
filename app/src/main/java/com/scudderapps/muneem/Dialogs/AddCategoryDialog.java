@@ -74,7 +74,6 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
 
         //setting the default values to the dialog box
         cat_name.setText(bundleName);
-        System.out.println(cat_name.length());
         layout.setBackgroundColor(bundleColor);
         selectedColor.setBackgroundColor(bundleColor);
         if (bundleType.equals("Expense")) {
@@ -115,14 +114,14 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
             @Override
             public void onClick(View v) {
 
-                updated_cat_name = cat_name.getText().toString().trim();
+                updated_cat_name = cat_name.getText().toString();
                 expenseTypeID = expense_type.getCheckedRadioButtonId();
                 categoryType = view.findViewById(expenseTypeID);
                 cat_type = categoryType.getText().toString();
                 ColorDrawable colorDrawable = (ColorDrawable) layout.getBackground();
                 colorID = colorDrawable.getColor();
 
-                if (cat_name.getText().toString().length() < 1) {
+                if (updated_cat_name.isEmpty()) {
                     cat_name.setError("Enter Category");
                     Toast.makeText(context, "Enter Category", Toast.LENGTH_SHORT).show();
                 } else {
