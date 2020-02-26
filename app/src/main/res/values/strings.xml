@@ -25,5 +25,6 @@
     <string name="comments">Comments</string>
     <string name="demo">Demo</string>
     <string name="transaction_added">Transaction Added</string>
+    <string name="trash">Trash</string>
 
 </resources>

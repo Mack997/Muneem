@@ -60,35 +60,36 @@ public class CategoryActivity extends AppCompatActivity {
 
         //Setting up the Drawer Layout
         final PrimaryDrawerItem categoryItem = new PrimaryDrawerItem()
-                .withSelectedColor(getColor(R.color.colorPrimaryDark))
                 .withName(R.string.category)
-                .withDescription("Manage your Categories")
                 .withSetSelected(false)
-                .withSelectedTextColor(getColor(R.color.colorPrimary))
+                .withSelectedTextColor(getColor(R.color.black_de))
                 .withIcon(R.drawable.category_icon);
 
         final PrimaryDrawerItem settingItem = new PrimaryDrawerItem()
-                .withSelectedColor(getColor(R.color.colorPrimaryDark))
                 .withName(R.string.settings)
-                .withDescription("Manage your preferences")
                 .withSetSelected(false)
-                .withSelectedTextColor(getColor(R.color.colorPrimary))
+                .withSelectedTextColor(getColor(R.color.black_de))
                 .withIcon(R.drawable.settings_icon);
 
         final PrimaryDrawerItem transactionsItem = new PrimaryDrawerItem()
-                .withSelectedColor(getColor(R.color.colorPrimaryDark))
                 .withName(R.string.transactions)
-                .withDescription("View your Transactions")
                 .withSetSelected(false)
-                .withSelectedTextColor(getColor(R.color.colorPrimary))
+                .withSelectedTextColor(getColor(R.color.black_de))
                 .withIcon(R.drawable.graph);
+
+        final PrimaryDrawerItem trashItem = new PrimaryDrawerItem()
+                .withName("Trash")
+                .withSetSelected(false)
+                .withSelectedTextColor(getColor(R.color.black_de))
+                .withIcon(R.drawable.trash);
+
 
         new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withTranslucentStatusBar(true)
                 .withSelectedItem(1)
-                .addDrawerItems(transactionsItem, categoryItem, settingItem)
+                .addDrawerItems(transactionsItem, categoryItem, trashItem, settingItem)
                 .withHasStableIds(true)
                 .withDrawerWidthDp(280)
                 .withSavedInstance(savedInstanceState)
@@ -97,6 +98,10 @@ public class CategoryActivity extends AppCompatActivity {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                          if (drawerItem.equals(transactionsItem)) {
                              back();
+                         } else if (drawerItem.equals(trashItem)) {
+                             Intent trash = new Intent(CategoryActivity.this, TrashActivity.class);
+                             startActivity(trash);
+                             finish();
                          }
                         return true;
                     }
