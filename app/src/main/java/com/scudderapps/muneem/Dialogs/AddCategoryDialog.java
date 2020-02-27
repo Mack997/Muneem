@@ -30,6 +30,7 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
     private String updated_cat_name, cat_type;
     private int colorID, expenseTypeID;
     private CategoryData categoryData;
+    private int editTypeUpdated;
 
     private RadioButton categoryType;
     private RelativeLayout layout;
@@ -129,6 +130,7 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
 
                         categoryData = ((CategoryActivity)getActivity()).getCategoryData();
                         layout.setBackgroundColor(categoryData.getColor());
+                        editTypeUpdated = 1 ;
                     }else{
                         categoryData = new CategoryData();
                     }
@@ -136,8 +138,10 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
                     categoryData.setName(updated_cat_name);
                     categoryData.setType(cat_type);
                     categoryData.setColor(colorID);
+                    categoryData.setEdited(editTypeUpdated);
 
                     categoryViewModel = new CategoryViewModel(getActivity().getApplication());
+
                     if(bundle.getInt("edit") == 1){
                         categoryViewModel.update(categoryData);
                     }else{

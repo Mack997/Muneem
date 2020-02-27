@@ -14,7 +14,7 @@ public class TransactionData {
     String comment;
     String Type;
     int color;
-    
+
     public int getColor() {
         return color;
     }

@@ -12,6 +12,15 @@ public class CategoryData {
     private String Name;
     private String Type;
     private int Color;
+    private int edited = 0;
+
+    public int getEdited() {
+        return edited;
+    }
+
+    public void setEdited(int edited) {
+        this.edited = edited;
+    }
 
     public String getName() {
         return Name;
