@@ -7,8 +7,9 @@ import androidx.room.PrimaryKey;
 @Entity
 public class CategoryData {
 
-    @PrimaryKey(autoGenerate = true)
-    private int Id;
+    @NonNull
+    @PrimaryKey
+    private String Id;
     private String Name;
     private String Type;
     private int Color;
@@ -30,11 +31,11 @@ public class CategoryData {
         Name = name;
     }
 
-    public int getId() {
+    public String getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         Id = id;
     }
 

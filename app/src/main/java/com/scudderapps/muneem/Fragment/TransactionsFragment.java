@@ -1,5 +1,6 @@
 package com.scudderapps.muneem.Fragment;
 
+import android.app.Application;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +43,7 @@ public class TransactionsFragment extends Fragment {
             public void onChanged(@Nullable List<TransactionData> transactionData) {
                 //setting up the data in recycler view.
                 transactionView.setLayoutManager(new LinearLayoutManager(getContext()));
-                transactionAdapter= new TransactionAdapter();
+                transactionAdapter= new TransactionAdapter(getActivity().getApplication());
                 transactionView.setAdapter(transactionAdapter);
                 transactionAdapter.setTransactionList(transactionData);
             }

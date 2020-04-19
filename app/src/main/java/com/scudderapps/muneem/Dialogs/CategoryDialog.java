@@ -81,10 +81,11 @@ public class CategoryDialog extends AppCompatDialogFragment {
                     public void onItemClick(CategoryData categoryData) {
                         String catName = categoryData.getName();
                         String expenseType = categoryData.getType();
+                        String categoryId = categoryData.getId();
                         int color = categoryData.getColor();
                         if (getParentFragment() instanceof AddTransactionDialog) {
                             ((AddTransactionDialog) getParentFragment())
-                                    .setCategoryToTransactionDialog(catName, color, expenseType);
+                                    .setCategoryToTransactionDialog(categoryId);
                         }
 
                         Bundle transData = new Bundle();

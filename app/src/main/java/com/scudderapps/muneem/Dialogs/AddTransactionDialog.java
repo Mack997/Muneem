@@ -14,8 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.scudderapps.muneem.Model.CategoryData;
 import com.scudderapps.muneem.Model.TransactionData;
 import com.scudderapps.muneem.R;
+import com.scudderapps.muneem.Repository.CategoryRepository;
 import com.scudderapps.muneem.ViewModels.TransactionViewModel;
 
 import java.text.SimpleDateFormat;
@@ -39,7 +41,7 @@ public class AddTransactionDialog extends AppCompatDialogFragment{
     private Integer choose_color = null;
     private String fetched_type;
     private FloatingActionButton addTrans;
-    private String choose_amount, choose_comment, choose_category, choose_date;
+    private String choose_amount, choose_comment, choose_category_name, choose_date, choose_category_id;
     private TransactionViewModel transactionViewModel;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM, yyyy");
 
@@ -102,11 +104,11 @@ public class AddTransactionDialog extends AppCompatDialogFragment{
 
                 choose_amount = amount.getText().toString();
                 choose_comment = comment.getText().toString();
-                choose_category = category.getText().toString();
+                choose_category_name = category.getText().toString();
                 if (choose_amount.isEmpty()){
                     amount.setError("Please Enter an amount");
                     Toast.makeText(context, "Please Enter a amount", Toast.LENGTH_SHORT).show();
-                } else if (choose_category.isEmpty()){
+                } else if (choose_category_name.isEmpty()){
                     category.setError("Please choose a category");
                     Toast.makeText(context, "Please select a Category", Toast.LENGTH_SHORT).show();
                 } else {
@@ -114,7 +116,8 @@ public class AddTransactionDialog extends AppCompatDialogFragment{
                     transactionData.setDate(date.getText().toString());
                     transactionData.setAmount(choose_amount);
                     transactionData.setComment(choose_comment);
-                    transactionData.setCategory(choose_category);
+                    transactionData.setCategoryName(choose_category_name);
+                    transactionData.setCategoryId(choose_category_id);
                     transactionData.setType(fetched_type);
                     if (choose_color != null) {
                         transactionData.setColor(choose_color);
@@ -129,10 +132,13 @@ public class AddTransactionDialog extends AppCompatDialogFragment{
         return builder.create();
     }
     
-    public void setCategoryToTransactionDialog(String categoryName, int color, String getType){
-        category.setText(categoryName);
-        transactionRL.setBackgroundColor(color);
-        choose_color = color;
-        fetched_type = getType;
+    public void setCategoryToTransactionDialog(String categoryId){
+        CategoryRepository categoryRepository = new CategoryRepository(getActivity().getApplication());
+        CategoryData tempCategoryData = categoryRepository.getCategoryById(categoryId);
+        category.setText(tempCategoryData.getName());
+        transactionRL.setBackgroundColor(tempCategoryData.getColor());
+        choose_color = tempCategoryData.getColor();
+        fetched_type = tempCategoryData.getType();
+        choose_category_id = categoryId;
     }
 }
