@@ -6,15 +6,17 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class TransactionData {
-
+    
     @PrimaryKey(autoGenerate = true)
-    int id;
-    String date;
-    String amount;
-    String comment;
-    String Type;
-    int color;
-
+    private int id;
+    private String date;
+    private String amount;
+    private String comment;
+    private String Type;
+    private int color;
+    private String categoryName;
+    private String categoryId;
+    
     public int getColor() {
         return color;
     }
@@ -22,54 +24,60 @@ public class TransactionData {
     public void setColor(int color) {
         this.color = color;
     }
-
-    public String getCategory() {
-        return category;
+    
+    public String getCategoryName() {
+        return categoryName;
     }
-
-    public void setCategory(String category) {
-        this.category = category;
+    
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
-
-    String category;
-
+    
     public int getId() {
         return id;
     }
-
+    
     public void setId(int id) {
         this.id = id;
     }
-
+    
     public String getDate() {
         return date;
     }
-
+    
     public void setDate(String date) {
         this.date = date;
     }
-
+    
     public String getAmount() {
         return amount;
     }
-
+    
     public void setAmount(String amount) {
         this.amount = amount;
     }
-
+    
     public String getComment() {
         return comment;
     }
-
+    
     public void setComment(String comment) {
         this.comment = comment;
     }
-
+    
     public String getType() {
         return Type;
     }
-
+    
     public void setType(String type) {
         Type = type;
+    }
+    
+    public String getCategoryId() {
+        return categoryId;
+    }
+    
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 }

@@ -139,6 +139,7 @@ public class AddCategoryDialog extends AppCompatDialogFragment  {
                     categoryData.setType(cat_type);
                     categoryData.setColor(colorID);
                     categoryData.setEdited(editTypeUpdated);
+                    categoryData.setId(updated_cat_name+"-"+cat_type);
 
                     categoryViewModel = new CategoryViewModel(getActivity().getApplication());
 

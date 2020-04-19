@@ -139,14 +139,14 @@ public class CategoryActivity extends AppCompatActivity {
                         setCategoryData(categoryData);
                         String catName = categoryData.getName();
                         String expenseType = categoryData.getType();
-                        int id = categoryData.getId();
+                        String id = categoryData.getId();
                         int color = categoryData.getColor();
 
                         Bundle bundle = new Bundle();
                         bundle.putString("name", catName);
                         bundle.putString("type", expenseType);
                         bundle.putInt("color", color);
-                        bundle.putInt("id",id);
+                        bundle.putString("id",id);
                         bundle.putInt("edit",1);
                         addCategoryDialog.setArguments(bundle);
                         addCategoryDialog.show(getSupportFragmentManager(), "Update Category");

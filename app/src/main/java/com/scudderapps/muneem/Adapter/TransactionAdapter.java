@@ -1,5 +1,7 @@
 package com.scudderapps.muneem.Adapter;
 
+import android.app.Application;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.scudderapps.muneem.Model.CategoryData;
 import com.scudderapps.muneem.Model.TransactionData;
 import com.scudderapps.muneem.R;
+import com.scudderapps.muneem.Repository.CategoryRepository;
 
 import java.util.List;
 
@@ -19,6 +23,11 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     List<TransactionData> transactionList;
     private TransactionAdapter.OnItemClickListener listener;
+    private Application context;
+    
+    public TransactionAdapter(Application mContext) {
+        this.context = mContext;
+    }
 
     @NonNull
     @Override
@@ -32,16 +41,18 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     public void onBindViewHolder(@NonNull TransactionHolder holder, int position) {
 
         TransactionData transactions = transactionList.get(position);
-        holder.catName.setText(transactions.getCategory());
+        CategoryRepository categoryRepository = new CategoryRepository(context);
+        CategoryData tempCategoryData = categoryRepository.getCategoryById(transactions.getCategoryId());
+        holder.catName.setText(tempCategoryData.getName());
         holder.amount.setText(transactions.getAmount());
         holder.comment.setText(transactions.getComment());
         holder.date.setText(transactions.getDate());
-        if (transactions.getType().equals("Expense")) {
+        if (tempCategoryData.getType().equals("Expense")) {
             holder.image_type.setBackgroundResource(R.drawable.expense_50);
         }else {
             holder.image_type.setBackgroundResource(R.drawable.income_50);
         }
-        holder.itemView.setBackgroundColor(transactions.getColor());
+        holder.itemView.setBackgroundColor(tempCategoryData.getColor());
     }
 
 
